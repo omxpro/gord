@@ -1,15 +1,6 @@
 ## Alts harmed in the making of this fork
 
-| Possible issue                             | Alt count |
-|--------------------------------------------|-----------|
-| Hard ban                                   | 0         |
-| Phone Verification Required to do anything | 2         |
-
-If cause is specified as another alt, I forgot to nuke my discord client between sign out and sign in, and it flagged the alt.
-| Name             | Issue        | Date YYYY-MM-DD | Fate      | Cause            |
-|------------------|--------------|-----------------|-----------|------------------|
-| Stink the second | Verification | 2021-04-02      | Abandoned | Changing nick    |
-| Gord test alt 1  | Verification | 2021-04-03      | Abandoned | Stink the second |
+https://discord.gg/e4HnvY28Wq Check the #dead-alts channel
 
 
 <h1 align="center">Gord</h1>

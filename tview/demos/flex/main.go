@@ -2,7 +2,7 @@
 package main
 
 import (
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 )
 
 func main() {

@@ -7,10 +7,10 @@ import (
 
 	"github.com/Bios-Marcel/discordgo"
 
-	"github.com/Bios-Marcel/cordless/commands"
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/ui"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/commands"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/ui"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 const serverHelpPage = `[::b]NAME

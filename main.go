@@ -8,12 +8,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/Bios-Marcel/cordless/app"
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/logging"
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/cordless/ui/shortcutdialog"
-	"github.com/Bios-Marcel/cordless/version"
+	"github.com/cainy-a/gord/app"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/logging"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/gord/ui/shortcutdialog"
+	"github.com/cainy-a/gord/version"
 )
 
 func main() {

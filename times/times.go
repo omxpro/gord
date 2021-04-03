@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Bios-Marcel/cordless/config"
+	"github.com/cainy-a/gord/config"
 )
 
 // TimeToLocalString formats a time to a string depending on the users settings.

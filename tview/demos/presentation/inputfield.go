@@ -2,7 +2,7 @@ package main
 
 import (
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 )
 
 const inputField = `[green]package[white] main
@@ -11,7 +11,7 @@ const inputField = `[green]package[white] main
     [red]"strconv"[white]
 
     [red]tcell "github.com/gdamore/tcell/v2"[white]
-    [red]"github.com/Bios-Marcel/cordless/tview"[white]
+    [red]"github.com/cainy-a/gord/tview"[white]
 )
 
 [green]func[white] [yellow]main[white]() {

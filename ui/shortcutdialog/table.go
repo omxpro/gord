@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Bios-Marcel/cordless/shortcuts"
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/shortcuts"
+	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
 )
 

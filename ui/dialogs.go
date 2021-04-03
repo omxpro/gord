@@ -1,8 +1,8 @@
 package ui
 
 import (
-	"github.com/Bios-Marcel/cordless/shortcuts"
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/shortcuts"
+	"github.com/cainy-a/gord/tview"
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
 )

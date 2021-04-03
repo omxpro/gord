@@ -3,12 +3,12 @@ package ui
 import (
 	"fmt"
 
-	"github.com/Bios-Marcel/cordless/readstate"
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/gord/readstate"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/discordgo"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 // GuildList is the UI component to hold all user guilds and allow loading

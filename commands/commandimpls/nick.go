@@ -8,7 +8,7 @@ import (
 	"github.com/Bios-Marcel/discordemojimap"
 	"github.com/Bios-Marcel/discordgo"
 
-	"github.com/Bios-Marcel/cordless/commands"
+	"github.com/cainy-a/gord/commands"
 )
 
 type NickSetCmd struct {

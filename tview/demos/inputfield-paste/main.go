@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
 )
 

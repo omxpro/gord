@@ -4,12 +4,12 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/discordutil"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/discordutil"
+	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
 )
 

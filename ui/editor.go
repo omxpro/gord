@@ -3,14 +3,14 @@ package ui
 import (
 	"unicode"
 
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/femto"
-	"github.com/Bios-Marcel/cordless/shortcuts"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/femto"
+	"github.com/cainy-a/gord/shortcuts"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 // Editor is a simple component that wraps tview.TextView in order to give

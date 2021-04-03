@@ -13,17 +13,17 @@ import (
 	linkshortener "github.com/Bios-Marcel/shortnotforlong"
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/discordutil"
-	"github.com/Bios-Marcel/cordless/shortcuts"
-	"github.com/Bios-Marcel/cordless/times"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/discordutil"
+	"github.com/cainy-a/gord/shortcuts"
+	"github.com/cainy-a/gord/times"
+	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/discordgo"
 
 	// Blank import for initializing the tview formatter
-	_ "github.com/Bios-Marcel/cordless/syntax"
+	_ "github.com/cainy-a/gord/syntax"
 
 	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters"

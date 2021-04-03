@@ -10,9 +10,9 @@ import (
 
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 var (

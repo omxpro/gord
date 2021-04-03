@@ -20,7 +20,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/robertkrimen/otto"
 
-	"github.com/Bios-Marcel/cordless/scripting"
+	"github.com/cainy-a/gord/scripting"
 )
 
 var (

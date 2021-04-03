@@ -9,8 +9,8 @@ import (
 
 	"github.com/Bios-Marcel/discordgo"
 
-	"github.com/Bios-Marcel/cordless/times"
-	"github.com/Bios-Marcel/cordless/util/files"
+	"github.com/cainy-a/gord/times"
+	"github.com/cainy-a/gord/util/files"
 )
 
 // MentionsCurrentUserExplicitly checks whether the message contains any

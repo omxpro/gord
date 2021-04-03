@@ -4,14 +4,14 @@ import (
 	"errors"
 	"os"
 
-	"github.com/Bios-Marcel/cordless/shortcuts"
-	"github.com/Bios-Marcel/cordless/tview"
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/gord/shortcuts"
+	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/discordgo"
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
-	"github.com/Bios-Marcel/cordless/util/text"
+	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/cainy-a/gord/util/text"
 )
 
 const splashText = `

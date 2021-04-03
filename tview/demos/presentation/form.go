@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 )
 
 const form = `[green]package[white] main
 
 [green]import[white] (
-    [red]"github.com/Bios-Marcel/cordless/tview"[white]
+    [red]"github.com/cainy-a/gord/tview"[white]
 )
 
 [green]func[white] [yellow]main[white]() {

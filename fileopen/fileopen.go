@@ -9,9 +9,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Bios-Marcel/cordless/commands"
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/util/files"
+	"github.com/cainy-a/gord/commands"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/util/files"
 	"github.com/skratchdot/open-golang/open"
 )
 

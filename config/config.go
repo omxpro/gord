@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Bios-Marcel/cordless/util/files"
+	"github.com/cainy-a/gord/util/files"
 )
 
 const (

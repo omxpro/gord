@@ -7,8 +7,8 @@ import (
 
 	"github.com/Bios-Marcel/discordgo"
 
-	"github.com/Bios-Marcel/cordless/readstate"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/readstate"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 // SortMessagesByTimestamp sorts all messages in the given array according to

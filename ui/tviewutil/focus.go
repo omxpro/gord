@@ -1,6 +1,6 @@
 package tviewutil
 
-import "github.com/Bios-Marcel/cordless/tview"
+import "github.com/cainy-a/gord/tview"
 
 func FocusNextIfPossible(direction tview.FocusDirection, app *tview.Application, focused tview.Primitive) {
 	if focused == nil {

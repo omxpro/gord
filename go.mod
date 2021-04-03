@@ -1,4 +1,4 @@
-module github.com/Bios-Marcel/cordless
+module github.com/cainy-a/gord
 
 go 1.12
 

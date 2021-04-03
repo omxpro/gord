@@ -4,11 +4,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/ui/tviewutil"
 
 	"github.com/Bios-Marcel/discordgo"
 
-	"github.com/Bios-Marcel/cordless/config"
+	"github.com/cainy-a/gord/config"
 )
 
 func TestGetUserColor(t *testing.T) {

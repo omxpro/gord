@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/Bios-Marcel/cordless/version"
+	"github.com/cainy-a/gord/version"
 )
 
 const versionDocumentation = `[::b]NAME

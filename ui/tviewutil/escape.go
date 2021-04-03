@@ -3,7 +3,7 @@
 package tviewutil
 
 import (
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/tview"
 )
 
 // Escape delegates to tview escape, optionally doing additional escaping.

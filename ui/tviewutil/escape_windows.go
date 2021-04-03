@@ -1,8 +1,8 @@
 package tviewutil
 
 import (
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/tview"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/tview"
 	"github.com/mattn/go-runewidth"
 )
 

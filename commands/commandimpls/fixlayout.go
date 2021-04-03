@@ -5,9 +5,9 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/Bios-Marcel/cordless/config"
-	"github.com/Bios-Marcel/cordless/ui"
-	"github.com/Bios-Marcel/cordless/ui/tviewutil"
+	"github.com/cainy-a/gord/config"
+	"github.com/cainy-a/gord/ui"
+	"github.com/cainy-a/gord/ui/tviewutil"
 )
 
 var fixLayoutDocumentation = `[orange]# fixlayout[white]

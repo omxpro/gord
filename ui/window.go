@@ -25,7 +25,7 @@ import (
 
 	"github.com/atotto/clipboard"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/gen2brain/beeep"
 

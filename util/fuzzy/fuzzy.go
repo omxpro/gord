@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 )
 
 type SearchResult struct {

@@ -4,10 +4,10 @@ import (
 	"errors"
 	"os"
 
+	"github.com/atotto/clipboard"
+	"github.com/cainy-a/discordgo"
 	"github.com/cainy-a/gord/shortcuts"
 	"github.com/cainy-a/gord/tview"
-	"github.com/cainy-a/discordgo"
-	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
 
 	"github.com/cainy-a/gord/ui/tviewutil"
@@ -282,7 +282,7 @@ func (login *Login) attemptLogin() {
 			}
 		}
 
-		session, loginError := discordgo.NewWithPasswordAndMFA(login.usernameInput.GetText(), login.passwordInput.GetText(), mfaTokenText)
+		session, loginError := discordgo.New(login.usernameInput.GetText(), login.passwordInput.GetText(), mfaTokenText)
 		login.sessionChannel <- &loginAttempt{session, loginError}
 	}
 

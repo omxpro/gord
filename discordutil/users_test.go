@@ -6,7 +6,7 @@ import (
 
 	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 
 	"github.com/cainy-a/gord/config"
 )

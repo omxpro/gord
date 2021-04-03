@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 )
 
 var (

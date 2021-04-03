@@ -12,7 +12,7 @@ import (
 
 	"github.com/Bios-Marcel/discordemojimap"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 
 	"github.com/cainy-a/gord/config"
 	"github.com/cainy-a/gord/ui"

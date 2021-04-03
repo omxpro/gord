@@ -3,7 +3,7 @@ package discordutil
 import (
 	"testing"
 
-	"github.com/Bios-Marcel/discordgo"
+	"github.com/cainy-a/discordgo"
 )
 
 func Test_MentionsCurrentUserExplicitly(t *testing.T) {

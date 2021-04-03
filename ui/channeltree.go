@@ -6,8 +6,8 @@ import (
 
 	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/cainy-a/gord/tview"
 
 	"github.com/cainy-a/gord/config"
 	"github.com/cainy-a/gord/discordutil"
@@ -176,7 +176,7 @@ func (channelTree *ChannelTree) createChannelNode(channel *discordgo.Channel) *t
 	// Adds a padlock prefix if the channel if not readable by the everyone group
 	if config.Current.IndicateChannelAccessRestriction {
 		for _, permission := range channel.PermissionOverwrites {
-			if permission.Type == "role" && permission.ID == channel.GuildID && permission.Deny&discordgo.PermissionViewChannel == discordgo.PermissionViewChannel {
+			if permission.Type == discordgo.PermissionOverwriteTypeRole && permission.ID == channel.GuildID && permission.Deny&discordgo.PermissionViewChannel == discordgo.PermissionViewChannel {
 				channelNode.AddPrefix(lockedIndicator)
 				break
 			}

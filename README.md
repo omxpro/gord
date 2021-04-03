@@ -1,27 +1,19 @@
-# I AM CLOSING DOWN THE CORDLESS PROJECT
+## Alts harmed in the making of this fork
 
-Hey, so I know this is somewhat of a bummer, but I got banned because of ToS violation today. This seemed to be connected to creating a new PM channel via the `/users/@me` endpoint. As that's basically a confirmation for what we've believed would never be enforced, I decided to not work on the cordless project anymore. I'll be taking down cordless in package managers in hope that no new users will install it anymore without knowing the risks. I believe that if you manage to build it yourself, you've probably read the README and are aware of the risks.
-I'll keep the repository up, but might archive it at some point. **And yes, you'll still be able to use existing binaries for as long as discord doesn't introduce any more breaking changes. However, be aware that the risk of getting a ban will only get higher with time!**
+| Possible issue                             | Alt count |
+|--------------------------------------------|-----------|
+| Hard ban                                   | 0         |
+| Phone Verification Required to do anything | 2         |
 
-<h1 align="center">Cordless</h1>
+If cause is specified as another alt, I forgot to nuke my discord client between sign out and sign in, and it flagged the alt.
+| Name             | Issue        | Date YYYY-MM-DD | Fate      | Cause            |
+|------------------|--------------|-----------------|-----------|------------------|
+| Stink the second | Verification | 2021-04-02      | Abandoned | Changing nick    |
+| Gord test alt 1  | Verification | 2021-04-03      | Abandoned | Stink the second |
 
-<p align="center">
-  <a href="https://circleci.com/gh/Bios-Marcel/cordless">
-    <img src="https://img.shields.io/circleci/build/gh/Bios-Marcel/cordless?label=linux&logo=linux&logoColor=white">
-  </a>
-  <a href="https://travis-ci.org/Bios-Marcel/cordless">
-    <img src="https://img.shields.io/travis/Bios-Marcel/cordless?label=darwin&logo=apple&logoColor=white">
-  </a>
-  <a href="https://ci.appveyor.com/project/Bios-Marcel/cordless/branch/master">
-    <img src=https://img.shields.io/appveyor/ci/Bios-Marcel/cordless?label=windows&logo=windows&logoColor=white">
-  </a>
-  <a href="https://codecov.io/gh/Bios-Marcel/cordless">
-     <img src="https://codecov.io/gh/Bios-Marcel/cordless/branch/master/graph/badge.svg">
-  </a>
-  <a href="https://discord.gg/fxFqszu">
-     <img src="https://img.shields.io/discord/600329866558308373.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2">
-  </a>
-</p>
+
+<h1 align="center">Gord</h1>
+A maintained fork of Cordless with replies and images.
 
 ## Overview
 
@@ -37,9 +29,9 @@ I'll keep the repository up, but might archive it at some point. **And yes, you'
 - [Similar projects](#similar-projects)
 - [Credits](#credits)
 
-**WARNING: Third party clients are discouraged and against the Discord TOS. There have already been cordless users that got banned, including me (Bios-Marcel, the maker and maintainer)**
+**WARNING: Third party clients are discouraged and against the Discord TOS. There have already been cordless users that got banned, including Bios-Marcel, the maker and maintainer of cordless, and I assume that the same will be true for Gord**
 
-Cordless is a custom [Discord](https://discord.com/app) client that aims to
+Gord is a custom [Discord](https://discord.com/app) client that aims to
 have a low memory footprint and be aimed at power-users.
 
 The application only uses the official Discord API and doesn't send data to
@@ -56,7 +48,7 @@ If you don't want to build the application yourself or use some kind of
 package management system, you can get the latest binaries for the three
 major systems in the release overview:
 
-https://github.com/Bios-Marcel/cordless/releases/latest
+https://github.com/cainy-a/gord/releases/latest
 
 ### Building from source
 
@@ -70,12 +62,12 @@ https://git-scm.com/downloads.
 Open a command line and execute the following commands:
 
 ```shell
-git clone https://github.com/Bios-Marcel/cordless.git
-cd cordless
+git clone https://github.com/cainy-a/gord
+cd gord
 go build
 ```
 
-This will create an executable file called `cordless` or `cordless.exe`
+This will create an executable file called `gord` or `gord.exe`
 depending on whether you are on Windows or not. Move that file anywhere
  that your terminal can find it. I recommend adding a `bin` folder to your
 user home and adding it to your systems `PATH` variable. Please search the
@@ -133,11 +125,11 @@ If you happen to encounter a crash or a bug, please submit a bug report via
 the projects GitHub issue tracker. Bugs reported via Discord will probably
 be forgotten or overseen.
 
-For general problems faced by cordless users, check out the wiki at:
+For general problems faced by gord users, check out the wiki at:
 https://github.com/Bios-Marcel/cordless/wiki/Troubleshooting
 
 If you need help or have questions that you don't want to create an issue
-for, just join our Discord server: https://discord.gg/fxFqszu
+for, just join the cordless Discord server: https://discord.gg/fxFqszu
 
 # FAQ
 
@@ -148,7 +140,6 @@ https://github.com/Bios-Marcel/cordless/wiki/FAQ
 ## This project isn't for you, if
 
 - You like fancy GUI
-- You want to see images, videos and whatnot inside of the application itself
 - You need the voice/video calling features
 - You need to manage or moderate servers
 
@@ -166,9 +157,4 @@ Hit me up if you have a similar project, and I'll gladly add it to the list.
 
 ## Credits
 
-Big thanks to [JetBrains](https://www.jetbrains.com/?from=cordless) for providing the
-cordless project with free licenses!
-
-This project was mainly inspired by [Southclaws](https://github.com/Southclaws)
-[Cordless](https://github.com/Southclaws/cordless-old), which he sadly didn't
-develop any further.
+This project is based off of Cordless by Bios-Marcel, [here](https://github.com/Bios-Marcel/cordless)

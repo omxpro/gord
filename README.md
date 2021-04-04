@@ -1,10 +1,9 @@
+<h1 align="center">Gord</h1>
+A maintained fork of Cordless with replies and images.
+
 ## Alts harmed in the making of this fork
 
 https://discord.gg/e4HnvY28Wq Check the #dead-alts channel
-
-
-<h1 align="center">Gord</h1>
-A maintained fork of Cordless with replies and images.
 
 ## Overview
 

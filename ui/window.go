@@ -92,7 +92,9 @@ type Window struct {
 	bareChat   bool
 	activeView ActiveView
 
+	// reply stuff
 	currentReplyMsg *discordgo.Message
+	bottomBar       *components.BottomBar
 }
 
 type ActiveView bool
@@ -253,6 +255,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		if shortcuts.ReplySelectedMessage.Equals(event) {
 			window.currentReplyMsg = message
 			app.SetFocus(window.messageInput.GetPrimitive())
+			window.bottomBar.InsertItemAtStart(fmt.Sprintf("Replying to: %s", window.currentReplyMsg.Author))
 			return nil
 		}
 
@@ -729,7 +732,8 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
 				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
-				window.currentReplyMsg = nil // dont reply to the same message forever
+				window.currentReplyMsg = nil          // dont reply to the same message forever
+				window.bottomBar.RemoveItemAtIndex(0) // remove replying message
 			}
 			return nil
 		}
@@ -866,7 +870,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 	window.rootContainer.AddItem(window.dialogReplacement, 2, 0, false)
 
 	if config.Current.ShowBottomBar {
-		bottomBar := components.NewBottomBar()
+		window.bottomBar = components.NewBottomBar()
 		var loggedInAsText string
 		username := tviewutil.Escape(session.State.User.Username)
 		if session.State.User.Bot {
@@ -874,9 +878,9 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		} else {
 			loggedInAsText = fmt.Sprintf("Logged in as: '%s'", username)
 		}
-		bottomBar.AddItem(loggedInAsText)
-		bottomBar.AddItem(fmt.Sprintf("View / Change shortcuts: %s", shortcutdialog.EventToString(shortcutsDialogShortcut)))
-		window.rootContainer.AddItem(bottomBar, 1, 0, false)
+		window.bottomBar.AddItem(loggedInAsText)
+		window.bottomBar.AddItem(fmt.Sprintf("View / Change shortcuts: %s", shortcutdialog.EventToString(shortcutsDialogShortcut)))
+		window.rootContainer.AddItem(window.bottomBar, 1, 0, false)
 	}
 
 	window.rootContainer.SetInputCapture(window.handleChatWindowShortcuts)

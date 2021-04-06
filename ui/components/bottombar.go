@@ -72,6 +72,28 @@ func (b *BottomBar) AddItem(text string) {
 	b.items = append(b.items, &bottomBarItem{text})
 }
 
+func (b *BottomBar) InsertItemAtStart(text string) {
+	b.Lock()
+	defer b.Unlock()
+	originalItems := b.items
+	b.items = []*bottomBarItem{{content: text}}
+	for i := range originalItems {
+		b.items = append(b.items, originalItems[i])
+	}
+}
+
+func (b *BottomBar) RemoveItemAtIndex(index int) {
+	b.Lock()
+	defer b.Unlock()
+	originalItems := b.items
+	b.items = []*bottomBarItem{}
+	for i := range originalItems {
+		if i != index {
+			b.items = append(b.items, originalItems[i])
+		}
+	}
+}
+
 // NewBottomBar creates a new bar to be put at the bottom aplication.
 // It contains static information and hints.
 func NewBottomBar() *BottomBar {

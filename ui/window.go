@@ -251,11 +251,8 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if shortcuts.ReplySelectedMessage.Equals(event) {
-			/*window.messageInput.SetText("@" + message.Author.Username + "#" + message.Author.Discriminator + " " + window.messageInput.GetText())
-			app.SetFocus(window.messageInput.GetPrimitive())*/
-			// ^^^ old stinky cordless code that just mentions them
 			window.currentReplyMsg = message
-			// ^^^ epic replies stuff
+			app.SetFocus(window.messageInput.GetPrimitive())
 			return nil
 		}
 
@@ -732,6 +729,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
 				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
+				window.currentReplyMsg = nil // dont reply to the same message forever
 			}
 			return nil
 		}

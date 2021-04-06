@@ -91,6 +91,8 @@ type Window struct {
 
 	bareChat   bool
 	activeView ActiveView
+
+	currentReplyMsg *discordgo.Message
 }
 
 type ActiveView bool
@@ -249,8 +251,11 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if shortcuts.ReplySelectedMessage.Equals(event) {
-			window.messageInput.SetText("@" + message.Author.Username + "#" + message.Author.Discriminator + " " + window.messageInput.GetText())
-			app.SetFocus(window.messageInput.GetPrimitive())
+			/*window.messageInput.SetText("@" + message.Author.Username + "#" + message.Author.Discriminator + " " + window.messageInput.GetText())
+			app.SetFocus(window.messageInput.GetPrimitive())*/
+			// ^^^ old stinky cordless code that just mentions them
+			window.currentReplyMsg = message
+			// ^^^ epic replies stuff
 			return nil
 		}
 
@@ -726,7 +731,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		} else if shortcuts.SendMessage.Equals(event) {
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
-				window.TrySendMessage(window.selectedChannel, messageToSend)
+				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
 			}
 			return nil
 		}
@@ -1215,7 +1220,7 @@ func (window *Window) insertQuoteOfMessage(message *discordgo.Message) {
 	}
 }
 
-func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message string) {
+func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message) {
 	if targetChannel == nil {
 		return
 	}
@@ -1266,17 +1271,17 @@ func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message s
 						}
 					}()
 				} else {
-					window.sendMessageWithLengthCheck(targetChannel, messagePrepared)
+					window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg)
 				}
 			}, yesButton, "No")
 		})
 		return
 	}
 
-	window.sendMessageWithLengthCheck(targetChannel, messagePrepared)
+	window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg)
 }
 
-func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channel, message string) {
+func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message) {
 	overlength := len(message) - 2000
 	if overlength > 0 {
 		window.app.QueueUpdateDraw(func() {
@@ -1285,17 +1290,17 @@ func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channe
 				func(button string) {
 					if button == sendAsFile {
 						window.messageInput.SetText("")
-						go window.sendMessageAsFile(message, targetChannel.ID)
+						go window.sendMessageAsFile(message, targetChannel.ID, replyMsg)
 					}
 				}, sendAsFile, "Nothing")
 		})
 		return
 	}
 
-	go window.sendMessage(targetChannel.ID, message)
+	go window.sendMessage(targetChannel.ID, message, replyMsg)
 }
 
-func (window *Window) sendMessageAsFile(message string, channel string) {
+func (window *Window) sendMessageAsFile(message string, channel string, replyMsg *discordgo.Message) {
 	discordutil.SendMessageAsFile(window.session, message, channel, func(sendError error) {
 		retry := "Retry sending"
 		edit := "Edit"
@@ -1305,7 +1310,7 @@ func (window *Window) sendMessageAsFile(message string, channel string) {
 				func(button string) {
 					switch button {
 					case retry:
-						go window.sendMessageAsFile(channel, message)
+						go window.sendMessageAsFile(channel, message, replyMsg)
 					case edit:
 						window.messageInput.SetText(message)
 					}
@@ -1314,12 +1319,19 @@ func (window *Window) sendMessageAsFile(message string, channel string) {
 	})
 }
 
-func (window *Window) sendMessage(targetChannelID, message string) {
+func (window *Window) sendMessage(targetChannelID, message string, replyMsg *discordgo.Message) {
 	window.app.QueueUpdateDraw(func() {
 		window.messageInput.SetText("")
 		window.chatView.internalTextView.ScrollToEnd()
 	})
-	_, sendError := window.session.ChannelMessageSend(targetChannelID, message)
+
+	var sendError error
+	if replyMsg != nil {
+		_, sendError = window.session.ChannelMessageSendReply(targetChannelID, message, replyMsg.Reference())
+	} else {
+		_, sendError = window.session.ChannelMessageSend(targetChannelID, message)
+	}
+
 	if sendError != nil {
 		window.app.QueueUpdateDraw(func() {
 			retry := "Retry sending"
@@ -1330,7 +1342,7 @@ func (window *Window) sendMessage(targetChannelID, message string) {
 				func(button string) {
 					switch button {
 					case retry:
-						go window.sendMessage(targetChannelID, message)
+						go window.sendMessage(targetChannelID, message, replyMsg)
 					case edit:
 						window.messageInput.SetText(message)
 					}

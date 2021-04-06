@@ -141,7 +141,7 @@ const chatViewDocumentation = `[::b]TOPIC
 	| Delete message              | Delete     |
 	| Copy content                | c          |
 	| Copy link to message        | l          |
-	| Reply with mention          | r          |
+	| Send message as reply       | r          |
 	| Quote message               | q          |
 	| Hide / show spoiler content | s          |
 	| Selection up                | ArrowUp    |

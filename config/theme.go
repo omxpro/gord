@@ -24,6 +24,7 @@ type Theme struct {
 	AttentionColor   tcell.Color
 	ErrorColor       tcell.Color
 	RandomUserColors []tcell.Color
+	ReplyColor       tcell.Color
 }
 
 var (
@@ -77,6 +78,7 @@ func createDefaultTheme() *Theme {
 			tcell.NewRGBColor(0xcf, 0x4e, 0xd8),
 			tcell.NewRGBColor(0xd8, 0x4e, 0x9c),
 		},
+		ReplyColor: tcell.ColorGray,
 	}
 }
 

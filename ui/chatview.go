@@ -327,7 +327,7 @@ func (chatView *ChatView) addMessageInternal(message *discordgo.Message) {
 	formattedMessage, messageAlreadyFormatted := chatView.formattedMessages[message.ID]
 	if !messageAlreadyFormatted {
 		if isBlocked {
-			formattedMessage = chatView.messagePartsToColouredString(message.Timestamp, "Blocked user", "Blocked message")
+			formattedMessage = chatView.messagePartsToColouredString(message.Timestamp, "Blocked user", "Blocked message", "")
 		} else {
 			formattedMessage = chatView.formatMessage(message)
 		}
@@ -428,7 +428,8 @@ func (chatView *ChatView) formatMessage(message *discordgo.Message) string {
 	return chatView.messagePartsToColouredString(
 		message.Timestamp,
 		chatView.formatMessageAuthor(message),
-		chatView.formatMessageText(message))
+		chatView.formatMessageText(message),
+		chatView.formatMessageReply(message))
 }
 
 func (chatView *ChatView) formatMessageAuthor(message *discordgo.Message) string {
@@ -451,8 +452,31 @@ func (chatView *ChatView) formatMessageAuthor(message *discordgo.Message) string
 	return "[::b][" + userColor + "]" + messageAuthor + ":[::-]"
 }
 
+func (chatView *ChatView) formatMessageReplyAuthor(message *discordgo.Message) string {
+	var member *discordgo.Member
+	if message.GuildID != "" {
+		member, _ = chatView.state.Member(message.GuildID, message.Author.ID)
+	}
+
+	var messageAuthor string
+	var userColor string
+	if member != nil {
+		messageAuthor = discordutil.GetMemberName(member)
+		userColor = discordutil.GetMemberColor(chatView.state, member)
+	}
+	if messageAuthor == "" {
+		messageAuthor = discordutil.GetUserName(message.Author)
+		userColor = discordutil.GetUserColor(message.Author)
+	}
+
+	messageAuthor = "@" + messageAuthor
+
+	return "[::b][" + userColor + "]" + messageAuthor + ":[::-]"
+}
+
 func (chatView *ChatView) formatMessageText(message *discordgo.Message) string {
-	if message.Type == discordgo.MessageTypeDefault {
+	if message.Type == discordgo.MessageTypeDefault ||
+		message.Type == discordgo.MessageTypeReply {
 		return chatView.formatDefaultMessageText(message)
 	} else if message.Type == discordgo.MessageTypeGuildMemberJoin {
 		return "[" + tviewutil.ColorToHex(config.GetTheme().InfoMessageColor) + "]joined the server."
@@ -835,6 +859,23 @@ func (chatView *ChatView) formatDefaultMessageText(message *discordgo.Message) s
 	return messageBuffer.String() + reactionText
 }
 
+func (chatView *ChatView) formatMessageReply(message *discordgo.Message) string {
+	isReply := message.Type == discordgo.MessageTypeReply
+	reply := message.ReferencedMessage
+	if reply != nil && isReply {
+		return "         [" +
+			tviewutil.ColorToHex(config.GetTheme().ReplyColor) +
+			"]╭──" +
+			chatView.formatMessageReplyAuthor(reply) +
+			" [" +
+			tviewutil.ColorToHex(config.GetTheme().ReplyColor) +
+			"]" +
+			reply.Content
+	} else {
+		return ""
+	}
+}
+
 func parseCustomEmojis(text string) string {
 	messageText := text
 
@@ -918,14 +959,28 @@ func removeLeadingWhitespaceInCode(code string) string {
 	return tabsTrimmed
 }
 
-func (chatView *ChatView) messagePartsToColouredString(timestamp discordgo.Timestamp, author, message string) string {
+func (chatView *ChatView) messagePartsToColouredString(timestamp discordgo.Timestamp, author, message, reply string) string {
 	time, parseError := timestamp.Parse()
 	var timeCellText string
 	if parseError == nil {
 		timeCellText = times.TimeToLocalString(&time)
 	}
 
-	return fmt.Sprintf("["+tviewutil.ColorToHex(config.GetTheme().MessageTimeColor)+"]%s %s ["+tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor)+"]%s[\"\"][\"\"]", timeCellText, author, message)
+	if reply == "" {
+		return fmt.Sprintf("[" +
+			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor) +
+			"]%s %s [" +
+			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor) +
+			"]%s[\"\"][\"\"]",
+			timeCellText, author, message)
+	} else {
+		return fmt.Sprintf("%s\n[" +
+			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor) +
+			"]%s %s [" +
+			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor) +
+			"]%s[\"\"][\"\"]",
+			reply, timeCellText, author, message)
+	}
 }
 
 func parseBoldAndUnderline(messageText string) string {

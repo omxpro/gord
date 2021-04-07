@@ -14,7 +14,7 @@ import (
 const (
 	//AppNameLowercase is the representative name, but lowercase.
 	//It us used for filepaths and such.
-	AppNameLowercase = "cordless"
+	AppNameLowercase = "gord"
 
 	//HourMinuteAndSeconds is the time format HH:MM:SS.
 	HourMinuteAndSeconds = 0

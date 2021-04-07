@@ -971,13 +971,13 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 func getWelcomeText() string {
 	return fmt.Sprintf(splashText+`
 
-Welcome to version %s of Cordless. Below you can see the most
+Welcome to version %s of Gord. Below you can see the most
 important changes of the last two versions officially released.
 
-[::b]THIS VERSION
-	- Features
-	- Changes
+[::b]THIS VERSION (2021-04-07)
 	- Bugfixes
+[::b]2021-04-06
+	- Replies
 [::b]2020-10-24
 	- Features
 		- DM people via "p" in the chatview or use the dm-open command

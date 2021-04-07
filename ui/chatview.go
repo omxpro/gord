@@ -19,8 +19,8 @@ import (
 	"github.com/cainy-a/gord/times"
 	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/cainy-a/gord/tview"
 
 	// Blank import for initializing the tview formatter
 	_ "github.com/cainy-a/gord/syntax"
@@ -433,26 +433,17 @@ func (chatView *ChatView) formatMessage(message *discordgo.Message) string {
 }
 
 func (chatView *ChatView) formatMessageAuthor(message *discordgo.Message) string {
-	var member *discordgo.Member
-	if message.GuildID != "" {
-		member, _ = chatView.state.Member(message.GuildID, message.Author.ID)
-	}
-
-	var messageAuthor string
-	var userColor string
-	if member != nil {
-		messageAuthor = discordutil.GetMemberName(member)
-		userColor = discordutil.GetMemberColor(chatView.state, member)
-	}
-	if messageAuthor == "" {
-		messageAuthor = discordutil.GetUserName(message.Author)
-		userColor = discordutil.GetUserColor(message.Author)
-	}
-
+	messageAuthor, userColor := chatView.formatAuthorBase(message)
 	return "[::b][" + userColor + "]" + messageAuthor + ":[::-]"
 }
 
 func (chatView *ChatView) formatMessageReplyAuthor(message *discordgo.Message) string {
+	messageAuthor, userColor := chatView.formatAuthorBase(message)
+	messageAuthor = "@" + messageAuthor
+	return "[::b][" + userColor + "]" + messageAuthor + ":[::-]"
+}
+
+func (chatView *ChatView) formatAuthorBase(message *discordgo.Message) (string, string) {
 	var member *discordgo.Member
 	if message.GuildID != "" {
 		member, _ = chatView.state.Member(message.GuildID, message.Author.ID)
@@ -469,9 +460,7 @@ func (chatView *ChatView) formatMessageReplyAuthor(message *discordgo.Message) s
 		userColor = discordutil.GetUserColor(message.Author)
 	}
 
-	messageAuthor = "@" + messageAuthor
-
-	return "[::b][" + userColor + "]" + messageAuthor + ":[::-]"
+	return messageAuthor, userColor
 }
 
 func (chatView *ChatView) formatMessageText(message *discordgo.Message) string {
@@ -967,17 +956,17 @@ func (chatView *ChatView) messagePartsToColouredString(timestamp discordgo.Times
 	}
 
 	if reply == "" {
-		return fmt.Sprintf("[" +
-			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor) +
-			"]%s %s [" +
-			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor) +
+		return fmt.Sprintf("["+
+			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor)+
+			"]%s %s ["+
+			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor)+
 			"]%s[\"\"][\"\"]",
 			timeCellText, author, message)
 	} else {
-		return fmt.Sprintf("%s\n[" +
-			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor) +
-			"]%s %s [" +
-			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor) +
+		return fmt.Sprintf("%s\n["+
+			tviewutil.ColorToHex(config.GetTheme().MessageTimeColor)+
+			"]%s %s ["+
+			tviewutil.ColorToHex(config.GetTheme().PrimaryTextColor)+
 			"]%s[\"\"][\"\"]",
 			reply, timeCellText, author, message)
 	}

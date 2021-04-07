@@ -1,12 +1,12 @@
 <h1 align="center">Gord</h1>
-A maintained fork of Cordless with replies and images.
+A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with replies and images.
 
-!!! IMPORTANT: IF USING A BOT ACCOUNT ENABLE THIS INTENT !!!  
+### IMPORTANT: IF USING A BOT ACCOUNT ENABLE THIS INTENT
 ![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
 
 ## Alts harmed in the making of this fork
 
-https://discord.gg/e4HnvY28Wq Check the #dead-alts channel
+https://discord.gg/e4HnvY28Wq Check the [#dead-alts](https://discord.com/channels/827898879516606485/827899971969744957) channel
 ### Cain's top tips to not get banned
 - Don't try to manage DMs (remove or create) - based on what got [@Bios-Marcel](https://github.com/Bios-Marcel) banned
 - Don't manage your user (for example change nick) - based on what got Stink the second restricted
@@ -89,7 +89,7 @@ Logging in works via the UI on first startup of the application.
 If you are logging in with a bot token, you have to prepend `Bot` in front of
 the token.
 
-If you need to find out how to retrieve your token, check [the wiki](https://github.com/Bios-Marcel/cordless/wiki/Retrieving-your-token).
+If you need to find out how to retrieve your token, check [the cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Retrieving-your-token).
 
 **Currently captcha-code login isn't supported. Thanks for your SHIT-API, Google**
 
@@ -113,7 +113,7 @@ changer via <kbd>Ctrl</kbd> + <kbd>K</kbd>.
 
 ## Extending Cordless via the scripting interface
 
-[Check the wiki](https://github.com/Bios-Marcel/cordless/wiki/Extending-Cordless-via-the-scripting-interface)
+[Check the cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Extending-Cordless-via-the-scripting-interface)
 
 ## Troubleshooting
 
@@ -121,21 +121,18 @@ If you happen to encounter a crash or a bug, please submit a bug report via
 the projects GitHub issue tracker. Bugs reported via Discord will probably
 be forgotten or overseen.
 
-For general problems faced by gord users, check out the wiki at:
-https://github.com/Bios-Marcel/cordless/wiki/Troubleshooting
+For general problems faced by gord users, check out the [cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Troubleshooting) at
 
 If you need help or have questions that you don't want to create an issue
 for, just join the cordless Discord server: https://discord.gg/fxFqszu
 
 # FAQ
 
-In order to find answers to common questions, check out the FAQ in the wiki:
-
-https://github.com/Bios-Marcel/cordless/wiki/FAQ
+In order to find answers to common questions, check out the [FAQ](https://github.com/Bios-Marcel/cordless/wiki/FAQ)
 
 ## This project isn't for you, if
 
-- You like fancy GUI
+- You like a physical, fancy GUI with proper mouse support
 - You need the voice/video calling features
 - You need to manage or moderate servers
 

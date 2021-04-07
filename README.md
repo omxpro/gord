@@ -1,16 +1,9 @@
 <h1 align="center">Gord</h1>
 
-A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with replies and images.
+A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with extra features.
 
-### IMPORTANT: IF USING A BOT ACCOUNT ENABLE THIS INTENT
-![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
-
-## Alts harmed in the making of this fork
-
-https://discord.gg/e4HnvY28Wq Check the [#dead-alts](https://discord.com/channels/827898879516606485/827899971969744957) channel
-### Cain's top tips to not get banned
-- Don't try to manage DMs (remove or create) - based on what got [@Bios-Marcel](https://github.com/Bios-Marcel) banned
-- Don't manage your user (for example change nick) - based on what got Stink the second restricted
+## Warning!
+Gord is in development and is against Discord's TOS. We are not responsible for any damage.
 
 ## Overview
 
@@ -26,8 +19,6 @@ https://discord.gg/e4HnvY28Wq Check the [#dead-alts](https://discord.com/channel
 - [Similar projects](#similar-projects)
 - [Credits](#credits)
 
-**WARNING: Third party clients are discouraged and against the Discord TOS. There have already been cordless users that got banned, including Bios-Marcel, the maker and maintainer of cordless, and I assume that the same will be true for Gord**
-
 Gord is a custom [Discord](https://discord.com/app) client that aims to
 have a low memory footprint and be aimed at power-users.
 
@@ -40,7 +31,7 @@ Discord Inc.
 ## Installation
 
 ### Using prebuilt binaries
-
+**Note: There are no binaries for now. They will be added soon.**
 If you don't want to build the application yourself or use some kind of
 package management system, you can get the latest binaries for the three
 major systems in the release overview:
@@ -88,9 +79,10 @@ Note:
 Logging in works via the UI on first startup of the application.
 
 If you are logging in with a bot token, you have to prepend `Bot` in front of
-the token.
+the token. You also need to enable an intent.
+![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
 
-If you need to find out how to retrieve your token, check [the cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Retrieving-your-token).
+If you need to find out how to retrieve your token, check [the gord wiki](https://github.com/cainy-a/gord/wiki/Retrieving-your-token).
 
 **Currently captcha-code login isn't supported. Thanks for your SHIT-API, Google**
 
@@ -114,7 +106,7 @@ changer via <kbd>Ctrl</kbd> + <kbd>K</kbd>.
 
 ## Extending Cordless via the scripting interface
 
-[Check the cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Extending-Cordless-via-the-scripting-interface)
+[Check the Gord wiki](https://github.com/cainy-a/gord/wiki/Extending-Gord-via-the-scripting-interface)
 
 ## Troubleshooting
 
@@ -122,10 +114,10 @@ If you happen to encounter a crash or a bug, please submit a bug report via
 the projects GitHub issue tracker. Bugs reported via Discord will probably
 be forgotten or overseen.
 
-For general problems faced by gord users, check out the [cordless wiki](https://github.com/Bios-Marcel/cordless/wiki/Troubleshooting) at
+For general problems faced by gord users, check out the [gord wiki](https://github.com/cainy-a/gord/wiki/Troubleshooting) at
 
 If you need help or have questions that you don't want to create an issue
-for, just join the cordless Discord server: https://discord.gg/fxFqszu
+for, just join the Gord Discord server: https://discord.gg/e4HnvY28Wq
 
 # FAQ
 
@@ -134,21 +126,21 @@ In order to find answers to common questions, check out the [FAQ](https://github
 ## This project isn't for you, if
 
 - You like a physical, fancy GUI with proper mouse support
-- You need the voice/video calling features
+- You need to have all of the discords latest features
 - You need to manage or moderate servers
 
 ## Similar projects
 
 Here is a list of similar projects:
 
-- [terminal-discord](https://github.com/xynxynxyn/terminal-discord)
-- [Discurses](https://github.com/topisani/Discurses)
-- [Discline](https://github.com/MitchWeaver/Discline)
-- [discord-term](https://github.com/cloudrex/discord-term)
-- [6cord](https://gitlab.com/diamondburned/6cord)
+- [terminal-discord](https://github.com/xynxynxyn/terminal-discord) (DEPRECATED)
+- [Discurses](https://github.com/topisani/Discurses) (ARCHIVED)
+- [Discline](https://github.com/MitchWeaver/Discline) (ARCHIVED)
+- [discord-term](https://github.com/cloudrex/discord-term) (STALE)
+- [6cord](https://gitlab.com/diamondburned/6cord) (DEPRECATED)
 
 Hit me up if you have a similar project, and I'll gladly add it to the list.
 
 ## Credits
 
-This project is based off of Cordless by Bios-Marcel, [here](https://github.com/Bios-Marcel/cordless)
+This project is based off of [Cordless by Bios-Marcel](https://github.com/Bios-Marcel/cordless)

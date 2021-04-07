@@ -4,6 +4,9 @@ A maintained fork of Cordless with replies and images.
 ## Alts harmed in the making of this fork
 
 https://discord.gg/e4HnvY28Wq Check the #dead-alts channel
+### Cain's top tips to not get banned
+- Don't try to manage DMs (remove or create) - based on what got [@Bios-Marcel](https://github.com/Bios-Marcel) banned
+- Don't manage your user (for example change nick) - based on what got Stink the second restricted
 
 ## Overview
 

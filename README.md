@@ -121,7 +121,7 @@ for, just join the Gord Discord server: https://discord.gg/e4HnvY28Wq
 
 # FAQ
 
-In order to find answers to common questions, check out the [FAQ](https://github.com/Bios-Marcel/cordless/wiki/FAQ)
+In order to find answers to common questions, check out the [FAQ](https://github.com/cainy-a/gord/wiki/FAQ)
 
 ## This project isn't for you, if
 

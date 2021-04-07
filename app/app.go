@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/cainy-a/gord/tview"
 
 	"github.com/cainy-a/gord/commands/commandimpls"
 	"github.com/cainy-a/gord/config"
@@ -176,6 +176,8 @@ func attemptLogin(loginScreen *ui.Login, loginMessage string, configuration *con
 		readyChan <- event
 	})
 
+	// if Bot user with intent enabled, get all users
+	session.Identify.Intents = discordgo.IntentsAllWithoutPrivileged | discordgo.IntentsGuildMembers
 	discordError = session.Open()
 
 	if discordError != nil {

@@ -50,7 +50,7 @@ func GetLatestRemoteVersion() string {
 		return latestRemoteVersion
 	}
 
-	repositoryRelease, _, lookupError := github.NewClient(nil).Repositories.GetLatestRelease(context.Background(), "Bios-Marcel", "cordless")
+	repositoryRelease, _, lookupError := github.NewClient(nil).Repositories.GetLatestRelease(context.Background(), "cainy-a", "gord")
 	if lookupError != nil || repositoryRelease == nil {
 		return ""
 	}

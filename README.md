@@ -1,6 +1,9 @@
 <h1 align="center">Gord</h1>
 A maintained fork of Cordless with replies and images.
 
+!!! IMPORTANT: IF USING A BOT ACCOUNT ENABLE THIS INTENT !!!  
+![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
+
 ## Alts harmed in the making of this fork
 
 https://discord.gg/e4HnvY28Wq Check the #dead-alts channel

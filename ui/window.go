@@ -245,10 +245,12 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if shortcuts.NewDirectMessage.Equals(event) {
-			dmError := window.OpenDirectMessage(message.Author.ID)
+			/*dmError := window.OpenDirectMessage(message.Author.ID)
 			if dmError != nil {
 				window.ShowErrorDialog(dmError.Error())
-			}
+			}*/
+			window.ShowCustomErrorDialog("Creating DMs is disabled",
+				"This is a known cause of bans, and as such has been disabled for now.")
 			return nil
 		}
 

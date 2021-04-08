@@ -250,7 +250,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 				window.ShowErrorDialog(dmError.Error())
 			}*/
 			window.ShowCustomErrorDialog("Creating DMs is disabled",
-				"This is a known cause of bans, and as such has been disabled for now.")
+				"This is a known cause of bans, and as such has been disabled for now.\nPlease use the official client or https://discord.com")
 			return nil
 		}
 

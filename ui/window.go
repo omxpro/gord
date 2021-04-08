@@ -405,7 +405,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 	})
 	window.messageContainer = window.chatView.GetPrimitive()
 
-	window.messageInput = NewEditor(window.app)
+	window.messageInput = NewEditorWithWindow(window)
 	window.messageInput.internalTextView.SetIndicateOverflow(true)
 	window.messageInput.SetOnHeightChangeRequest(func(height int) {
 		_, _, _, chatViewHeight := window.chatView.internalTextView.GetRect()

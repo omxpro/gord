@@ -31,6 +31,9 @@ type Editor struct {
 	// App is the tview Application this editor is used in. The reference is
 	// required to query the current bracketed paste state.
 	App *tview.Application
+
+	// Needed to cancel replies
+	window *Window
 }
 
 func (editor *Editor) applyBuffer() {
@@ -402,7 +405,15 @@ func (editor *Editor) InsertCharacter(character rune) {
 }
 
 // NewEditor instantiates a ready to use text editor.
+func NewEditorWithWindow(window *Window) *Editor {
+	app := window.app
+	editor := NewEditor(app)
+	editor.window = window
+	return editor
+}
+
 func NewEditor(app *tview.Application) *Editor {
+
 	editor := Editor{
 		internalTextView: tview.NewTextView(),
 		requestedHeight:  3,
@@ -453,7 +464,12 @@ func NewEditor(app *tview.Application) *Editor {
 			}
 		}
 
-		if shortcuts.MoveCursorLeft.Equals(event) {
+		if shortcuts.CancelReply.Equals(event) {
+			if editor.window.currentReplyMsg != nil {
+				editor.window.bottomBar.RemoveItemAtIndex(0)
+			}
+			editor.window.currentReplyMsg = nil
+		} else if shortcuts.MoveCursorLeft.Equals(event) {
 			editor.MoveCursorLeft()
 		} else if shortcuts.ExpandSelectionToLeft.Equals(event) {
 			editor.SelectionToLeft()

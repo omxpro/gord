@@ -42,7 +42,7 @@ https://github.com/cainy-a/gord/releases/latest
 
 In order to execute the following commands, you need to install **go 1.13 or**
 higher. You can find golang packages at https://golang.org/doc/install.
-On top of that, you need to have **git** installed. It can be fund at
+On top of that, you need to have **git** installed. It can be found at
 https://git-scm.com/downloads.
 
 **UPDATES HAVE TO BE INSTALLED MANUALLY**
@@ -59,11 +59,11 @@ This will create an executable file called `gord` or `gord.exe`
 depending on whether you are on Windows or not. Move that file anywhere
  that your terminal can find it. I recommend adding a `bin` folder to your
 user home and adding it to your systems `PATH` variable. Please search the
-internet, using your favourite search engine, for
+internet, using your favorite search engine, for
 `how to set an environment variable in XXX` in order to update your `PATH`
 variable correctly.
 
-For updateing you simply have to delete the folder you downloaded last
+For updating, you simply have to delete the folder you downloaded last
 time and repeat the instructions.
 
 Note:
@@ -126,7 +126,7 @@ In order to find answers to common questions, check out the [FAQ](https://github
 ## This project isn't for you, if
 
 - You like a physical, fancy GUI with proper mouse support
-- You need to have all of the discords latest features
+- You need to have all of Discord's latest features
 - You need to manage or moderate servers
 
 ## Similar projects

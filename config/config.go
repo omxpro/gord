@@ -182,6 +182,7 @@ func (config *Config) GetAccountToken(account string) string {
 var cachedConfigDir string
 var cachedConfigFile string
 var cachedScriptDir string
+var cachedCacheDir string
 
 func createDefaultConfig() *Config {
 	// The values here are the defaults which can / will be overwritten
@@ -324,6 +325,28 @@ func GetConfigDirectory() (string, error) {
 	//stuff over and over again.
 	cachedConfigDir = directory
 	return cachedConfigDir, nil
+}
+
+// GetCacheDir gets the directory to be used for the image cache
+func GetCacheDir() (string, error) {
+	if cachedCacheDir != "" {
+		return cachedCacheDir, nil
+	}
+
+	directory, err := getDefaultCacheDirectory()
+	if err != nil {
+		return "", err
+	}
+
+	statError := files.EnsureDirectoryExists(directory)
+	if statError != nil {
+		return "", statError
+	}
+
+	//After first retrieval, we will save this, as we needn't redo all that
+	//stuff over and over again.
+	cachedCacheDir = directory
+	return cachedCacheDir, nil
 }
 
 func getAbsolutePath(directoryPath string) (string, error) {

@@ -3,8 +3,11 @@ package ui
 import (
 	"bytes"
 	"fmt"
+	"github.com/cavaliercoder/grab"
 	"log"
 	"math"
+	"net/url"
+	"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -358,6 +361,7 @@ func (chatView *ChatView) AddMessage(message *discordgo.Message) {
 
 	chatView.addMessageInternal(message)
 	chatView.refreshSelectionAndScrollToSelection()
+	chatView.processImages(message)
 	if wasScrolledToTheEnd {
 		chatView.internalTextView.ScrollToEnd()
 	}
@@ -417,6 +421,7 @@ func (chatView *ChatView) Reprint() {
 			newContent.WriteString(intToString(index))
 			newContent.WriteString("\"]")
 			newContent.WriteString(formattedMessage)
+			chatView.processImages(message)
 		} else {
 			panic("Bug in chatview, a message could not be found.")
 		}
@@ -862,6 +867,37 @@ func (chatView *ChatView) formatMessageReply(message *discordgo.Message) string 
 			reply.Content
 	} else {
 		return ""
+	}
+}
+
+func (chatView *ChatView) processImages(message *discordgo.Message) {
+	files := chatView.downloadImages(message)
+	chatView.displayImages(files)
+}
+
+func (chatView *ChatView) downloadImages(message *discordgo.Message) []string {
+	matches := urlRegex.FindAllString(message.Content, -1)
+	cacheDir, _ := config.GetCacheDir()
+	files := make([]string, 0, 9999)
+	for i := range matches {
+		fileUrl, _ := url.Parse(matches[i])
+		resp, err := grab.Get(cacheDir, fileUrl.Path)
+		if err != nil {
+			log.Fatal(err)
+		} else {
+			log.Println("Cached file to " + resp.Filename)
+		}
+		files = append(files, resp.Filename)
+	}
+
+	return files
+}
+
+func (chatView *ChatView) displayImages(filePaths []string) {
+	for i := range filePaths {
+		filePath := filePaths[i]
+		cmd := exec.Command("viu", "-h 10 -f "+filePath)
+		cmd.Run()
 	}
 }
 

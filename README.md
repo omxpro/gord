@@ -1,6 +1,6 @@
 <h1 align="center">Gord</h1>
 
-A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with extra features
+A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with extra features.
 
 ## Warning!
 Gord is in development and is against Discord's TOS. We are not responsible for any damage.

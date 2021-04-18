@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -2698,6 +2699,18 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 	window.chatView.SetMessages(messages)
 	window.chatView.internalTextView.ScrollToEnd()
 	window.UpdateChatHeader(channel)
+
+	if channel.RateLimitPerUser == 0 {
+		window.messageInput.SetTitle("")
+	} else {
+		amount := strconv.Itoa(channel.RateLimitPerUser) + "s"
+		if channel.RateLimitPerUser%60 == 0 {
+			amount = strconv.Itoa(channel.RateLimitPerUser/60) + "m"
+		} else if channel.RateLimitPerUser > 60 {
+			amount = strconv.Itoa(channel.RateLimitPerUser/60) + "m" + strconv.Itoa(channel.RateLimitPerUser%60) + "s"
+		}
+		window.messageInput.SetTitle("Channel Slowmode: " + amount)
+	}
 
 	if channel.Type == discordgo.ChannelTypeDM || channel.Type == discordgo.ChannelTypeGroupDM {
 		window.privateList.MarkAsLoaded(channel.ID)

@@ -3,8 +3,8 @@ package ui
 import (
 	"unicode"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/atotto/clipboard"
+	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
 
 	"github.com/cainy-a/gord/config"
@@ -422,6 +422,8 @@ func NewEditor(app *tview.Application) *Editor {
 		App:              app,
 	}
 
+	editor.internalTextView.SetTitleAlign(tview.AlignRight)
+
 	editor.internalTextView.SetWrap(true)
 	editor.internalTextView.SetWordWrap(true)
 	editor.internalTextView.SetBorder(true)
@@ -703,4 +705,9 @@ func (editor *Editor) GetText() string {
 // GetPrimitive returns the internal component that can be added to a layout
 func (editor *Editor) GetPrimitive() tview.Primitive {
 	return editor.internalTextView
+}
+
+// SetTitle sets the title of the internal TextView
+func (editor *Editor) SetTitle(text string) {
+	editor.internalTextView.SetTitle(text)
 }

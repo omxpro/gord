@@ -138,7 +138,7 @@ Here is a list of similar projects:
 - [discord-term](https://github.com/cloudrex/discord-term) (STALE)
 - [6cord](https://gitlab.com/diamondburned/6cord) (DEPRECATED)
 
-Hit me up if you have a similar project, and I'll gladly add it to the list
+Hit me up if you have a similar project, and I'll gladly add it to the list.
 
 ## Credits
 

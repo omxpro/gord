@@ -1,16 +1,16 @@
 ---
 name: Bug report
 about: Tell us what went wrong
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
-## How have you installed cordless
+## How have you installed gord
 
-- [ ] Arch User Repository
-<!--SNAP IS NOT SUPPORTED ANYMORE; VIEW THE README FOR NEW INSTALL INSTRUCTIONS-->
-<!-- - [ ] Snap-->
-- [ ] scoop
-- [ ] brew
 - [ ] go get
+- [ ] Github Releases
 - [ ] git clone & go build .
 
 ## What happened

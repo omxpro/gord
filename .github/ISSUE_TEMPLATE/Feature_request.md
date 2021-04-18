@@ -1,6 +1,9 @@
 ---
 name: Feature request
-about: Tell us what you'd like to see in cordless
+about: Tell us what you'd like to see in gord
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
@@ -10,7 +13,7 @@ about: Tell us what you'd like to see in cordless
 
 ## Why
 
-<!-- Why do you think this Feature would benefit Cordless? -->
+<!-- Why do you think this Feature would benefit Gord? -->
 
 ## Implementation hints
 

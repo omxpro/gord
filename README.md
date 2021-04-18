@@ -31,7 +31,6 @@ Discord Inc.
 ## Installation
 
 ### Using prebuilt binaries
-**Note: There are no binaries for now. They will be added soon.**
 If you don't want to build the application yourself or use some kind of
 package management system, you can get the latest binaries for the three
 major systems in the release overview:

@@ -65,7 +65,7 @@ func SetupApplicationWithAccount(app *tview.Application, account string) {
 			waitForUpdateDialogChannel := make(chan bool, 1)
 
 			dialog := tview.NewModal()
-			dialog.SetText(fmt.Sprintf("Version %s of cordless is available!\nYou are currently running version %s.\n\nUpdates have to be installed manually or via your package manager.\n\nThe snap package manager isn't supported by cordless anymore!", version.GetLatestRemoteVersion(), version.Version))
+			dialog.SetText(fmt.Sprintf("Version %s of Gord is available!\nYou are currently running version %s.\n\nUpdates have to be installed manually or via your package manager.", version.GetLatestRemoteVersion(), version.Version))
 			buttonOk := "Thanks for the info"
 			buttonDontRemindAgainForThisVersion := fmt.Sprintf("Skip reminders for %s", version.GetLatestRemoteVersion())
 			buttonNeverRemindMeAgain := "Never remind me again"

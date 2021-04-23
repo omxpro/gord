@@ -19,6 +19,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/robertkrimen/otto"
+	_ "github.com/robertkrimen/otto/underscore"
 
 	"github.com/cainy-a/gord/scripting"
 )

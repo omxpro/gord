@@ -1337,7 +1337,7 @@ func (window *Window) sendMessage(targetChannelID, message string, replyMsg *dis
 
 	var sendError error
 	if replyMsg != nil {
-		_, sendError = window.session.ChannelMessageSendReply(targetChannelID, message, replyMsg.Reference())
+		_, sendError = window.session.ChannelMessageSendReply(targetChannelID, message, replyMsg.Reference(), true)
 	} else {
 		_, sendError = window.session.ChannelMessageSend(targetChannelID, message)
 	}
@@ -1661,7 +1661,8 @@ func (window *Window) registerMouseFocusListeners() {
 
 func (window *Window) registerMessageEventHandler(input, edit, delete chan *discordgo.Message, bulkDelete chan *discordgo.MessageDeleteBulk) {
 	window.session.AddHandler(func(s *discordgo.Session, m *discordgo.MessageCreate) {
-		input <- m.Message
+		msg, _ := window.session.ChannelMessage(m.Message.ChannelID, m.Message.ID)
+		input <- msg
 	})
 	window.session.AddHandler(func(s *discordgo.Session, m *discordgo.MessageDeleteBulk) {
 		bulkDelete <- m

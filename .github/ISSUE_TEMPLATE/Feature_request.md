@@ -2,7 +2,7 @@
 name: Feature request
 about: Tell us what you'd like to see in gord
 title: ''
-labels: ''
+labels: 'enhancement'
 assignees: ''
 
 ---

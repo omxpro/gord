@@ -184,7 +184,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		//FIXME Request presences as soon as that stuff remotely works?
 		requestError := session.RequestGuildMembers(guildID, "", 0, false)
 		if requestError != nil {
-			fmt.Fprintln(window.commandView, "Error retrieving all guild members.")
+			_, _ = fmt.Fprintln(window.commandView, "Error retrieving all guild members.")
 		}
 
 		channelLoadError := window.channelTree.LoadGuild(guildID)
@@ -334,7 +334,10 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 					//Is there a more bulletproof way to doing this?
 					if strings.Contains(header.Header.Get("Content-Type"), "text/html") {
 						//We hope to just open this with the users browser ;)
-						open.Run(url)
+						err := open.Run(url)
+						if err != nil {
+							return nil
+						}
 						continue
 					}
 
@@ -711,7 +714,9 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 				targetChannel := window.selectedChannel
 				currentText := window.prepareMessage(targetChannel, strings.TrimSpace(window.messageInput.GetText()))
 				if currentText == "" {
-					go window.session.ChannelFileSend(targetChannel.ID, "img.png", dataChannel)
+					go func() {
+						_, _ = window.session.ChannelFileSend(targetChannel.ID, "img.png", dataChannel)
+					}()
 				} else {
 					messageData := &discordgo.MessageSend{
 						Content: currentText,
@@ -721,7 +726,9 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 							Reader:      dataChannel,
 						},
 					}
-					go window.session.ChannelMessageSendComplex(targetChannel.ID, messageData)
+					go func() {
+						_, _ = window.session.ChannelMessageSendComplex(targetChannel.ID, messageData)
+					}()
 					window.messageInput.SetText("")
 				}
 			} else {
@@ -1122,11 +1129,11 @@ func (window *Window) initExtensionEngine(engine scripting.Engine) error {
 	// stdout instead of a custom specified IO writer.
 
 	engine.SetPrintToConsoleFunction(func(text string) {
-		fmt.Fprint(window.commandView, text)
+		_, _ = fmt.Fprint(window.commandView, text)
 	})
 
 	engine.SetPrintLineToConsoleFunction(func(text string) {
-		fmt.Fprintln(window.commandView, text)
+		_, _ = fmt.Fprintln(window.commandView, text)
 	})
 
 	return nil
@@ -1164,7 +1171,7 @@ func (window *Window) OpenDirectMessage(userID string) error {
 func (window *Window) SwitchToPrivateChannel(channel *discordgo.Channel) {
 	window.SwitchToFriendsPage()
 	window.app.SetFocus(window.messageInput.GetPrimitive())
-	window.LoadChannel(channel)
+	_ = window.LoadChannel(channel)
 }
 
 func (window *Window) insertNewLineAtCursor() {
@@ -1661,7 +1668,10 @@ func (window *Window) registerMouseFocusListeners() {
 
 func (window *Window) registerMessageEventHandler(input, edit, delete chan *discordgo.Message, bulkDelete chan *discordgo.MessageDeleteBulk) {
 	window.session.AddHandler(func(s *discordgo.Session, m *discordgo.MessageCreate) {
-		msg, _ := window.session.ChannelMessage(m.Message.ChannelID, m.Message.ID)
+		msg, err := window.session.ChannelMessage(m.Message.ChannelID, m.Message.ID)
+		if err != nil {
+			return
+		}
 		input <- msg
 	})
 	window.session.AddHandler(func(s *discordgo.Session, m *discordgo.MessageDeleteBulk) {
@@ -2189,7 +2199,9 @@ func (window *Window) askForMessageDeletion(messageID string, usedWithSelection 
 	window.ShowDialog(tview.Styles.PrimitiveBackgroundColor,
 		"Do you really want to delete the message?", func(button string) {
 			if button == deleteButtonText {
-				go window.session.ChannelMessageDelete(window.selectedChannel.ID, messageID)
+				go func() {
+					_ = window.session.ChannelMessageDelete(window.selectedChannel.ID, messageID)
+				}()
 			}
 
 			window.exitMessageEditMode()
@@ -2295,7 +2307,7 @@ func (window *Window) handleChatWindowShortcuts(event *tcell.EventKey) *tcell.Ev
 
 func (window *Window) toggleUserContainer() {
 	config.Current.ShowUserContainer = !config.Current.ShowUserContainer
-	config.PersistConfig()
+	_ = config.PersistConfig()
 	window.updateUserList()
 	//Solves https://github.com/Bios-Marcel/cordless/issues/246
 	window.chatView.Reprint()
@@ -2347,14 +2359,14 @@ func (window *Window) FindCommand(name string) commands.Command {
 //command can't be found, that info will be printed onto the command output.
 func (window *Window) ExecuteCommand(input string) {
 	parts := commands.ParseCommand(input)
-	fmt.Fprintf(window.commandView, "[gray]$ %s\n", input)
+	_, _ = fmt.Fprintf(window.commandView, "[gray]$ %s\n", input)
 
 	if len(parts) > 0 {
 		command := window.FindCommand(parts[0])
 		if command != nil {
 			command.Execute(window.commandView, parts[1:])
 		} else {
-			fmt.Fprintf(window.commandView, "["+tviewutil.ColorToHex(config.GetTheme().ErrorColor)+"]The command '%s' doesn't exist[white]\n", parts[0])
+			_, _ = fmt.Fprintf(window.commandView, "["+tviewutil.ColorToHex(config.GetTheme().ErrorColor)+"]The command '%s' doesn't exist[white]\n", parts[0])
 		}
 	}
 }
@@ -2412,7 +2424,7 @@ func (window *Window) ShowTFASetup() error {
 				backupCodesAsString += backupCode.Code
 			}
 
-			clipboard.WriteAll(backupCodesAsString)
+			_ = clipboard.WriteAll(backupCodesAsString)
 
 			successText := tview.NewTextView().SetTextAlign(tview.AlignCenter)
 			successText.SetText("Setting up Two-Factor-Authentication was a success.\n\n" +
@@ -2612,9 +2624,9 @@ func (window *Window) updateUserList() {
 
 	if showUserList {
 		if selectedChannel != nil && selectedChannel.Type == discordgo.ChannelTypeGroupDM {
-			window.userList.LoadGroup(selectedChannel.ID)
+			_ = window.userList.LoadGroup(selectedChannel.ID)
 		} else if selectedGuild != nil {
-			window.userList.LoadGuild(selectedGuild.ID)
+			_ = window.userList.LoadGuild(selectedGuild.ID)
 		} else {
 			window.userList.Clear()
 		}
@@ -2715,7 +2727,10 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 	}
 
 	go func() {
-		readstate.UpdateRead(window.session, channel, channel.LastMessageID)
+		err := readstate.UpdateRead(window.session, channel, channel.LastMessageID)
+		if err != nil {
+			return
+		}
 		// Here we make the assumption that the channel we are loading must be part
 		// of the currently loaded guild, since we don't allow loading a channel of
 		// a guild otherwise.
@@ -2829,5 +2844,5 @@ func (window *Window) Shutdown() {
 	if config.Current.ShortenLinks {
 		window.chatView.shortener.Close()
 	}
-	window.session.Close()
+	_ = window.session.Close()
 }

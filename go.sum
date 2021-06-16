@@ -15,8 +15,8 @@ github.com/alecthomas/repr v0.0.0-20180818092828-117648cd9897 h1:p9Sln00KOTlrYkx
 github.com/alecthomas/repr v0.0.0-20180818092828-117648cd9897/go.mod h1:xTS7Pm1pD1mvyM075QCDSRqH6qRLXylzS24ZTpRiSzQ=
 github.com/atotto/clipboard v0.1.2 h1:YZCtFu5Ie8qX2VmVTBnrqLSiU9XOWwqNRmdT3gIQzbY=
 github.com/atotto/clipboard v0.1.2/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
-github.com/cainy-a/discordgo v0.23.3-1 h1:FBIES+ADLpKcs47mwuypkzuqrOjOcDrVYR6uAMKhVUY=
-github.com/cainy-a/discordgo v0.23.3-1/go.mod h1:qMMF5ZSkIBi66IT7kvH6CikrI60f2OSTi38eEBfgSTQ=
+github.com/cainy-a/discordgo v0.23.3-2 h1:qZh4ry7WMdWXdl3KdGil3nzSfyOHQL+gME3LLErrdnQ=
+github.com/cainy-a/discordgo v0.23.3-2/go.mod h1:qMMF5ZSkIBi66IT7kvH6CikrI60f2OSTi38eEBfgSTQ=
 github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 h1:y5HC9v93H5EPKqaS1UYVg1uYah5Xf51mBfIoWehClUQ=
 github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964/go.mod h1:Xd9hchkHSWYkEqJwUGisez3G1QY8Ryz0sdWrLPMGjLk=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

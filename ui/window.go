@@ -1672,6 +1672,10 @@ func (window *Window) registerMessageEventHandler(input, edit, delete chan *disc
 		if err != nil {
 			return
 		}
+		if m.ChannelID != window.selectedChannel.ID {
+			channel, _ := window.session.State.Channel(m.ChannelID)
+			channel.Messages[len(channel.Messages)-1] = msg
+		}
 		input <- msg
 	})
 	window.session.AddHandler(func(s *discordgo.Session, m *discordgo.MessageDeleteBulk) {

@@ -742,7 +742,6 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 					window.bottomBar.RemoveItemAtIndex(0) // remove replying message
 				}
 				window.currentReplyMsg = nil // dont reply to the same message forever
-				window.CountSlowmodeDown() // if relevant, count down the slowmode
 			}
 			return nil
 		}
@@ -2745,34 +2744,24 @@ func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
 	currentAmount := ""
 	if currentTime == 0 {
 		currentAmount = strconv.Itoa(currentTime) + "s"
-		if currentTime % 60 == 0 {
-			currentAmount = strconv.Itoa(currentTime / 60) + "m"
+		if currentTime%60 == 0 {
+			currentAmount = strconv.Itoa(currentTime/60) + "m"
 		} else if currentTime > 60 {
-			currentAmount = strconv.Itoa(currentTime / 60) + "m" + strconv.Itoa(currentTime % 60) + "s"
+			currentAmount = strconv.Itoa(currentTime/60) + "m" + strconv.Itoa(currentTime%60) + "s"
 		}
 		currentAmount += "/"
 	}
 
 	// display slowmode time
 	totalAmount := strconv.Itoa(totalTime) + "s"
-	if totalTime % 60 == 0 {
-		totalAmount = strconv.Itoa(totalTime / 60) + "m"
+	if totalTime%60 == 0 {
+		totalAmount = strconv.Itoa(totalTime/60) + "m"
 	} else if totalTime > 60 {
-		totalAmount = strconv.Itoa(totalTime / 60) + "m" + strconv.Itoa(totalTime % 60) + "s"
+		totalAmount = strconv.Itoa(totalTime/60) + "m" + strconv.Itoa(totalTime%60) + "s"
 	}
-	
+
 	// format and show
 	window.messageInput.SetTitle("Channel Slowmode: " + currentAmount + totalAmount)
-}
-
-// CountSlowmodeDown will count down the slowmode time - should be called as a goroutine
-func (window *Window) CountSlowmodeDown() {
-	slowmodeTime := window.selectedChannel.RateLimitPerUser
-
-	for i := slowmodeTime; i > 0; i-- {
-		window.DisplaySlowmode(i, slowmodeTime)
-		time.Sleep(time.Second)
-	}
 }
 
 // UpdateChatHeader updates the bordertitle of the chatviews container.o

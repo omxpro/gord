@@ -742,6 +742,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 					window.bottomBar.RemoveItemAtIndex(0) // remove replying message
 				}
 				window.currentReplyMsg = nil // dont reply to the same message forever
+				window.CountSlowmodeDown() // if relevant, count down the slowmode
 			}
 			return nil
 		}
@@ -2701,17 +2702,8 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 	window.chatView.internalTextView.ScrollToEnd()
 	window.UpdateChatHeader(channel)
 
-	if channel.RateLimitPerUser == 0 {
-		window.messageInput.SetTitle("")
-	} else {
-		amount := strconv.Itoa(channel.RateLimitPerUser) + "s"
-		if channel.RateLimitPerUser%60 == 0 {
-			amount = strconv.Itoa(channel.RateLimitPerUser/60) + "m"
-		} else if channel.RateLimitPerUser > 60 {
-			amount = strconv.Itoa(channel.RateLimitPerUser/60) + "m" + strconv.Itoa(channel.RateLimitPerUser%60) + "s"
-		}
-		window.messageInput.SetTitle("Channel Slowmode: " + amount)
-	}
+	// Display channel slowmode
+	window.DisplaySlowmode(channel.RateLimitPerUser, channel.RateLimitPerUser)
 
 	if channel.Type == discordgo.ChannelTypeDM || channel.Type == discordgo.ChannelTypeGroupDM {
 		window.privateList.MarkAsLoaded(channel.ID)
@@ -2739,6 +2731,48 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 	}()
 
 	return nil
+}
+
+// DisplaySlowmode takes the slowmode of a channel and the current remiaining countdown wait time and displays it on the chatbox
+func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
+	// no slowmode
+	if totalTime == 0 {
+		window.messageInput.SetTitle("")
+		return
+	}
+
+	// if relevant, display remaining countdown time
+	currentAmount := ""
+	if currentTime == 0 {
+		currentAmount = strconv.Itoa(currentTime) + "s"
+		if currentTime % 60 == 0 {
+			currentAmount = strconv.Itoa(currentTime / 60) + "m"
+		} else if currentTime > 60 {
+			currentAmount = strconv.Itoa(currentTime / 60) + "m" + strconv.Itoa(currentTime % 60) + "s"
+		}
+		currentAmount += "/"
+	}
+
+	// display slowmode time
+	totalAmount := strconv.Itoa(totalTime) + "s"
+	if totalTime % 60 == 0 {
+		totalAmount = strconv.Itoa(totalTime / 60) + "m"
+	} else if totalTime > 60 {
+		totalAmount = strconv.Itoa(totalTime / 60) + "m" + strconv.Itoa(totalTime % 60) + "s"
+	}
+	
+	// format and show
+	window.messageInput.SetTitle("Channel Slowmode: " + currentAmount + totalAmount)
+}
+
+// CountSlowmodeDown will count down the slowmode time - should be called as a goroutine
+func (window *Window) CountSlowmodeDown() {
+	slowmodeTime := window.selectedChannel.RateLimitPerUser
+
+	for i := slowmodeTime; i > 0; i-- {
+		window.DisplaySlowmode(i, slowmodeTime)
+		time.Sleep(time.Second)
+	}
 }
 
 // UpdateChatHeader updates the bordertitle of the chatviews container.o

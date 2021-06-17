@@ -73,10 +73,10 @@ func SetupApplicationWithAccount(app *tview.Application, account string) {
 			dialog.SetDoneFunc(func(index int, label string) {
 				if label == buttonDontRemindAgainForThisVersion {
 					configuration.DontShowUpdateNotificationFor = version.GetLatestRemoteVersion()
-					config.PersistConfig()
+					_ = config.PersistConfig()
 				} else if label == buttonNeverRemindMeAgain {
 					configuration.ShowUpdateNotifications = false
-					config.PersistConfig()
+					_ = config.PersistConfig()
 				}
 
 				waitForUpdateDialogChannel <- true
@@ -176,11 +176,24 @@ func attemptLogin(loginScreen *ui.Login, loginMessage string, configuration *con
 		readyChan <- event
 	})
 
-	// if Bot user with intent enabled, get all users
-	session.Identify.Intents = discordgo.IntentsAllWithoutPrivileged | discordgo.IntentsGuildMembers
+	session.Identify.Intents = discordgo.IntentsAllWithoutPrivileged
+	// if Bot user, ask for guild members. Note that this makes you REQUIRE the guild intent.
+	if strings.Contains(session.Token, "Bot") {
+		session.Identify.Intents |= discordgo.IntentsGuildMembers
+	}
+	privilegedIntentsFailed := false // this is set if privileged intents cause auth fail - prevent any infinite loops
+
+RETRY_LOGIN:
 	discordError = session.Open()
 
 	if discordError != nil {
+		if !privilegedIntentsFailed && strings.Contains(discordError.Error(), "intent") {
+			// I probably have an issue with my intents, so disable privileged intents and go again
+			session.Identify.Intents = discordgo.IntentsAllWithoutPrivileged
+			privilegedIntentsFailed = true // dont go back here again and get in a loop
+			goto RETRY_LOGIN
+		}
+
 		configuration.Token = ""
 		return attemptLogin(loginScreen, fmt.Sprintf("Error during last login attempt:\n\n[red]%s", discordError), configuration)
 	}

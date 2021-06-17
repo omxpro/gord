@@ -2,7 +2,7 @@
 name: Bug report
 about: Tell us what went wrong
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
@@ -12,6 +12,7 @@ assignees: ''
 - [ ] go get
 - [ ] Github Releases
 - [ ] git clone & go build .
+- [ ] Arch User Repository (the AUR)
 
 ## What happened
 
@@ -19,11 +20,15 @@ assignees: ''
 
 ## Error output
 
-<!-- If there was any output, enter it here please -->
+<!-- If there was any output, enter it here please, else remove this section -->
 
 ## How do you reproduce this bug
 
 <!-- Explain how exactly I can produce this bug on my machine -->
+
+## Additional Context
+
+<!-- If anything else is relevant, such as screenshots, please attach here, else remove this section -->
 
 ## System information
 

@@ -78,7 +78,7 @@ Note:
 Logging in works via the UI on first startup of the application.
 
 If you are logging in with a bot token, you have to prepend `Bot` in front of
-the token. You also need to enable an intent.
+the token. You also need to enable an intent if you want to view server users, but this is optional.
 ![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
 
 If you need to find out how to retrieve your token, check [the gord wiki](https://github.com/cainy-a/gord/wiki/Retrieving-your-token).

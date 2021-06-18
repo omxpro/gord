@@ -9,8 +9,8 @@ import (
 	"strings"
 	"sync"
 
-	linkshortener "github.com/Bios-Marcel/shortnotforlong"
-	tcell "github.com/gdamore/tcell/v2"
+	linkShortener "github.com/Bios-Marcel/shortnotforlong"
+	"github.com/gdamore/tcell/v2"
 
 	"github.com/cainy-a/gord/config"
 	"github.com/cainy-a/gord/discordutil"
@@ -44,7 +44,7 @@ type ChatView struct {
 
 	internalTextView *tview.TextView
 
-	shortener *linkshortener.Shortener
+	shortener *linkShortener.Shortener
 
 	state      *discordgo.State
 	data       []*discordgo.Message
@@ -86,7 +86,7 @@ func NewChatView(state *discordgo.State, ownUserID string) *ChatView {
 	}
 
 	if chatView.shortenLinks {
-		chatView.shortener = linkshortener.NewShortener(config.Current.ShortenerPort)
+		chatView.shortener = linkShortener.NewShortener(config.Current.ShortenerPort)
 		go func() {
 			shortenerError := chatView.shortener.Start()
 			if shortenerError != nil {

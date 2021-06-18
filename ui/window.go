@@ -256,11 +256,13 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if shortcuts.ReplySelectedMessage.Equals(event) {
-			if window.currentReplyMsg != nil {
+			if window.currentReplyMsg != nil && window.bottomBar != nil {
 				window.bottomBar.RemoveItemAtIndex(0)
 			}
 			window.currentReplyMsg = message
-			window.bottomBar.InsertItemAtStart(fmt.Sprintf("Replying to: %s", window.currentReplyMsg.Author))
+			if window.bottomBar != nil {
+				window.bottomBar.InsertItemAtStart(fmt.Sprintf("Replying to: %s", window.currentReplyMsg.Author))
+			}
 			app.SetFocus(window.messageInput.GetPrimitive())
 			return nil
 		}
@@ -745,7 +747,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
 				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
-				if window.currentReplyMsg != nil {
+				if window.currentReplyMsg != nil && window.bottomBar != nil {
 					window.bottomBar.RemoveItemAtIndex(0) // remove replying message
 				}
 				window.currentReplyMsg = nil // dont reply to the same message forever

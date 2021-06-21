@@ -256,13 +256,8 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if shortcuts.ReplySelectedMessage.Equals(event) {
-			if window.currentReplyMsg != nil && window.bottomBar != nil {
-				window.bottomBar.RemoveItemAtIndex(0)
-			}
 			window.currentReplyMsg = message
-			if window.bottomBar != nil {
-				window.bottomBar.InsertItemAtStart(fmt.Sprintf("Replying to: %s", window.currentReplyMsg.Author))
-			}
+			window.messageInput.ShowReply(window.currentReplyMsg.Author.String())
 			app.SetFocus(window.messageInput.GetPrimitive())
 			return nil
 		}
@@ -747,10 +742,8 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
 				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
-				if window.currentReplyMsg != nil && window.bottomBar != nil {
-					window.bottomBar.RemoveItemAtIndex(0) // remove replying message
-				}
-				window.currentReplyMsg = nil // dont reply to the same message forever
+				window.messageInput.ShowReply("") // remove replying message
+				window.currentReplyMsg = nil      // dont reply to the same message forever
 			}
 			return nil
 		}
@@ -2645,7 +2638,7 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
 	// no slowmode
 	if totalTime == 0 {
-		window.messageInput.SetTitle("")
+		window.messageInput.ShowSlowMode("")
 		return
 	}
 
@@ -2670,7 +2663,7 @@ func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
 	}
 
 	// format and show
-	window.messageInput.SetTitle("Channel Slowmode: " + currentAmount + totalAmount)
+	window.messageInput.ShowSlowMode("Channel Slowmode: " + currentAmount + totalAmount)
 }
 
 // UpdateChatHeader updates the bordertitle of the chatviews container.o

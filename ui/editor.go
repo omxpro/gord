@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"strings"
 	"unicode"
 
 	"github.com/atotto/clipboard"
@@ -34,6 +35,9 @@ type Editor struct {
 
 	// Needed to cancel replies
 	window *Window
+
+	// gotta keep track of the title text
+	title string
 }
 
 func (editor *Editor) applyBuffer() {
@@ -468,7 +472,7 @@ func NewEditor(app *tview.Application) *Editor {
 
 		if shortcuts.CancelReply.Equals(event) {
 			if editor.window.currentReplyMsg != nil {
-				editor.window.bottomBar.RemoveItemAtIndex(0)
+				editor.ShowReply("")
 			}
 			editor.window.currentReplyMsg = nil
 		} else if shortcuts.MoveCursorLeft.Equals(event) {
@@ -512,7 +516,7 @@ func NewEditor(app *tview.Application) *Editor {
 		} else if shortcuts.DeleteWordLeft.Equals(event) {
 			editor.DeleteWordLeft()
 		} else if shortcuts.CopySelection.Equals(event) {
-			clipboard.WriteAll(editor.buffer.Cursor.GetSelection())
+			_ = clipboard.WriteAll(editor.buffer.Cursor.GetSelection())
 			//Returning nil, as copying won't do anything than filling the
 			//clipboard buffer.
 			return nil
@@ -709,5 +713,52 @@ func (editor *Editor) GetPrimitive() tview.Primitive {
 
 // SetTitle sets the title of the internal TextView
 func (editor *Editor) SetTitle(text string) {
+	editor.title = text
 	editor.internalTextView.SetTitle(text)
+}
+
+// ShowSlowMode displays slowmode status on top of the editor
+func (editor *Editor) ShowSlowMode(slowmodeString string) {
+	_, oldReply, _ := getTitleComponents(editor.title)
+
+	separator := " | \u200c "
+	if slowmodeString == "" || oldReply == "" {
+		separator = " \u200c "
+	}
+
+	editor.SetTitle(oldReply + separator + slowmodeString)
+}
+
+// ShowReply displays replying status on top of the editor
+func (editor *Editor) ShowReply(replyUser string) {
+	_, _, oldSlowmode := getTitleComponents(editor.title)
+
+	separator := " | \u200c "
+
+	replyString := "Replying to: " + replyUser
+	if replyUser == "" {
+		replyString = ""
+	}
+
+	if replyUser == "" || oldSlowmode == "" {
+		separator = " \u200c "
+	}
+
+	editor.SetTitle(replyString + separator + oldSlowmode)
+}
+
+// try and get the reply and slowmode statuses from the title if relevant
+func getTitleComponents(title string) (success bool, reply, slowmode string) {
+	separator := " \u200c " // separates the reply and slowmode parts
+	if !strings.Contains(title, separator) {
+		return false, "", ""
+	}
+	parts := strings.Split(title, separator)
+	reply = parts[0]
+	if len(reply) > 0 {
+		reply = reply[:len(reply)-3] // trim off " |" at the end
+	}
+	slowmode = parts[1]
+
+	return true, reply, slowmode
 }

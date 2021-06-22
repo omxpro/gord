@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"encoding/hex"
 	"github.com/cainy-a/gord/discordutil"
 	"github.com/cainy-a/gord/tview"
 	"regexp"
@@ -34,7 +35,7 @@ type MessageView struct {
 	ownUserID            string
 	dateTimeFormat       string
 
-	onAction func(event *tcell.EventKey) *tcell.EventKey
+	onAction func(message *discordgo.Message, event *tcell.EventKey) *tcell.EventKey
 
 	*sync.Mutex
 
@@ -53,10 +54,12 @@ type MessageView struct {
 	uiReply          *tview.Flex
 	uiReplyAuthor    *tview.TextView
 	uiReplyContent   *tview.TextView
+
+	blocked bool
 }
 
 // NewMessageView creates a new MessageView ready for use
-func NewMessageView(message *discordgo.Message, ownUserID string, shortener *linkShortener.Shortener) {
+func NewMessageView(message *discordgo.Message, ownUserID string, shortener *linkShortener.Shortener) *MessageView {
 	messageView := MessageView{
 		message:    message,
 		ownUserID:  ownUserID,
@@ -68,9 +71,11 @@ func NewMessageView(message *discordgo.Message, ownUserID string, shortener *lin
 		shortenLinks:         config.Current.ShortenLinks,
 		shortenWithExtension: config.Current.ShortenWithExtension,
 		Mutex:                &sync.Mutex{},
+		blocked:              false,
 	}
 
 	messageView.buildRawUI()
+	messageView.render()
 
 	if messageView.shortenLinks {
 		if shortener == nil {
@@ -79,6 +84,8 @@ func NewMessageView(message *discordgo.Message, ownUserID string, shortener *lin
 			messageView.shortener = shortener
 		}
 	}
+
+	return &messageView
 }
 
 //////////////////////////////////
@@ -89,7 +96,10 @@ func NewMessageView(message *discordgo.Message, ownUserID string, shortener *lin
 func (messageView *MessageView) buildRawUI() {
 	messageView.uiTimestamp = tview.NewTextView().SetTextColor(tcell.ColorGray)
 	messageView.uiAuthor = tview.NewTextView()
-	messageView.uiContent = tview.NewTextView()
+	messageView.uiContent = tview.NewTextView().
+		SetDynamicColors(true).
+		SetRegions(true).
+		SetWordWrap(true)
 	messageView.uiFlex = tview.NewFlex().
 		AddItem(messageView.uiTimestamp, 1, 0, false).
 		AddItem(messageView.uiAuthor, 1, 0, false).
@@ -176,30 +186,61 @@ func (messageView *MessageView) renderAuthorBase(message *discordgo.Message) (st
 func (messageView *MessageView) renderAuthor() {
 	author, rawColour := messageView.renderAuthorBase(messageView.message)
 
-	colour := tcell.Color(tcell.Color.Hex(rawColour))
-	messageView.uiAuthor = messageView.uiAuthor.SetText(author).SetTextColor(colour)
+	colour := tcell.Color(parseHex(rawColour))
+	messageView.uiAuthor.SetText(author).SetTextColor(colour)
+
+	if messageView.blocked {
+		messageView.uiAuthor.SetTextColor(tcell.ColorWhite).SetText("Blocked user")
+	}
+}
+
+func parseHex(s string) uint64 {
+	dst, err := hex.DecodeString(s)
+	if err != nil {
+		return 0
+	}
+
+	working := uint64(dst[2])
+	working |= uint64(dst[1]) << 8
+	working |= uint64(dst[0]) << 16
+	return working
 }
 
 func (messageView *MessageView) renderContent() {
 	messageView.uiContent = tview.NewTextView().SetText("TODO: make messages display properly\n" + messageView.message.Content)
+	if messageView.blocked {
+		messageView.uiContent.SetText("Blocked message")
+	}
+}
+
+func (messageView *MessageView) makeBlocked() {
+	messageView.blocked = true
+}
+
+func (messageView *MessageView) makeUnblocked() {
+	messageView.blocked = false
 }
 
 // reply rendering
 
 func (messageView *MessageView) renderReply() {
-	messageView.renderReplyAuthor()
-	messageView.renderReplyContent()
+	if messageView.blocked {
+		messageView.makeUISimple()
+	} else {
+		messageView.renderReplyAuthor()
+		messageView.renderReplyContent()
+	}
 }
 
 func (messageView *MessageView) renderReplyAuthor() {
 	author, rawColour := messageView.renderAuthorBase(messageView.message)
 
-	colour := tcell.Color(tcell.Color.Hex(rawColour))
-	messageView.uiReplyAuthor = messageView.uiReplyAuthor.SetText(author).SetTextColor(colour)
+	colour := tcell.Color(parseHex(rawColour))
+	messageView.uiReplyAuthor.SetText(author).SetTextColor(colour)
 }
 
 func (messageView *MessageView) renderReplyContent() {
-	messageView.uiReplyContent = messageView.uiReplyContent.SetText(messageView.message.ReferencedMessage.Content)
+	messageView.uiReplyContent.SetText(messageView.message.ReferencedMessage.Content)
 }
 
 /////////////////////////////

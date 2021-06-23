@@ -8,6 +8,7 @@ Gord is in development and is against Discord's TOS. We are not responsible for 
 ## Overview
 
 - [How to install it](#installation)
+  - [Using a package manager](#using-a-package-manager)
   - [Using prebuilt binaries](#using-prebuilt-binaries)
   - [Building from source](#building-from-source)
 - [Login](#login)
@@ -29,6 +30,33 @@ Discord Inc.
 ![Demo Screenshot](.github/images/chat-demo.png)
 
 ## Installation
+
+### Using a package manager
+Gord is available on multiple package managers (2 and counting).
+
+#### AUR (Arch Linux)
+On Arch Linux, you can install the latest release with `gord-bin`,
+or get the latest commit with `gord-git`.
+
+A good AUR helper is `yay`, which can be installed manually [from the AUR](https://aur.archlinux.org/packages/yay/).
+```
+yay -S gord-bin
+```
+
+#### Homebrew (MacOS) (and Linuxbrew)
+On MacOS (or on Linux via Linuxbrew), you can use Homebrew to install Gord.
+Install homebrew with the following (works on mac and linux):
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Then install Gord with the following (you MUST add `--without-pngpaste` on linux):
+```
+brew tap yellowsink/gord
+# MacOS
+brew install gord
+# Linux
+brew install gord --without-pngpaste
+```
 
 ### Using prebuilt binaries
 If you don't want to build the application yourself or use some kind of

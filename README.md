@@ -58,6 +58,37 @@ brew install gord
 brew install gord --without-pngpaste
 ```
 
+#### Portage (Gentoo Linux)
+[Add](https://github.com/binex-dsk/ebuilds#adding-the-repository) the `swirl` repository.
+Available versions can be seen by trying to `emerge` gord:
+```
+# emerge gord
+...
+!!! All ebuilds that could satisfy "gord" have been masked.
+!!! One of the following masked packages is required to complete your request:
+- net-im/gord-9999::swirl (masked by: ~amd64 keyword)
+- net-im/gord-2021.06.17::swirl (masked by: ~amd64 keyword)
+...
+```
+Or through `equery` (available in the `app-portage/gentoolkit` package):
+```
+$ equery m gord
+...
+Keywords:    2021.06.17:0: 
+Keywords:    9999:0: ~amd64 ~x86
+...
+```
+Installing version `9999` will fetch the latest commit.
+
+Unmask your selected version:
+```
+# echo "=net-im/gord-$VERSION ~amd64" >> /etc/portage/package.accept_keywords"
+```
+And finally, install gord:
+```
+# emerge --ask gord
+```
+
 ### Using prebuilt binaries
 If you don't want to build the application yourself or use some kind of
 package management system, you can get the latest binaries for the three

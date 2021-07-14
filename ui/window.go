@@ -1557,7 +1557,9 @@ func (window *Window) registerMessageEventHandler(input, edit, delete chan *disc
 		// missing content field fix - if the channel is not focused this makes sure that session.State is correct
 		if window.selectedChannel == nil || m.ChannelID != window.selectedChannel.ID {
 			channel, _ := window.session.State.Channel(m.ChannelID)
-			channel.Messages[len(channel.Messages)-1] = msg
+			if len(channel.Messages) > 0 {
+				channel.Messages[len(channel.Messages)-1] = msg
+			}
 		}
 		input <- msg
 	})

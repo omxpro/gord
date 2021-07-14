@@ -124,7 +124,7 @@ func (l *MessageLoader) LoadMessages(channel *discordgo.Channel) ([]*discordgo.M
 
 // SendMessageAsFile sends the given message into the given channel using the
 // passed discord Session. If an error occurs, onFailure gets called.
-func SendMessageAsFile(session *discordgo.Session, message string, channel string, onFailure func(error)) {
+func SendMessageAsFile(session *discordgo.Session, message string, replyMsg *discordgo.Message, replyMention bool, channel string, onFailure func(error)) {
 	reader := bytes.NewBufferString(message)
 	messageAsFile := &discordgo.File{
 		Name:        "message.txt",
@@ -137,6 +137,19 @@ func SendMessageAsFile(session *discordgo.Session, message string, channel strin
 		TTS:     false,
 		Files:   nil,
 		File:    messageAsFile,
+		Reference: &discordgo.MessageReference{
+			MessageID: replyMsg.ID,
+			ChannelID: replyMsg.ChannelID,
+			GuildID:   replyMsg.GuildID,
+		},
+		AllowedMentions: &discordgo.MessageAllowedMentions{
+			Parse: []discordgo.AllowedMentionType{
+				discordgo.AllowedMentionTypeUsers,
+				discordgo.AllowedMentionTypeRoles,
+				discordgo.AllowedMentionTypeEveryone,
+			},
+			RepliedUser: replyMention,
+		},
 	}
 	_, sendError := session.ChannelMessageSendComplex(channel, complexMessage)
 	if sendError != nil {

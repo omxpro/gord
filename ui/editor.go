@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"strings"
 	"unicode"
 
 	"github.com/atotto/clipboard"
@@ -37,7 +36,9 @@ type Editor struct {
 	window *Window
 
 	// gotta keep track of the title text
-	title string
+	title           string
+	replyingUser    string
+	channelSlowMode string
 }
 
 func (editor *Editor) applyBuffer() {
@@ -470,7 +471,10 @@ func NewEditor(app *tview.Application) *Editor {
 			}
 		}
 
-		if shortcuts.MoveCursorLeft.Equals(event) {
+		if shortcuts.ToggleReplyMention.Equals(event) {
+			editor.window.replyMention = !editor.window.replyMention
+			editor.RerenderTitle()
+		} else if shortcuts.MoveCursorLeft.Equals(event) {
 			editor.MoveCursorLeft()
 		} else if shortcuts.ExpandSelectionToLeft.Equals(event) {
 			editor.SelectionToLeft()
@@ -714,46 +718,37 @@ func (editor *Editor) SetTitle(text string) {
 
 // ShowSlowMode displays slowmode status on top of the editor
 func (editor *Editor) ShowSlowMode(slowmodeString string) {
-	_, oldReply, _ := getTitleComponents(editor.title)
-
-	separator := " | \u200c "
-	if slowmodeString == "" || oldReply == "" {
-		separator = " \u200c "
-	}
-
-	editor.SetTitle(oldReply + separator + slowmodeString)
+	editor.channelSlowMode = slowmodeString
+	editor.RerenderTitle()
 }
 
 // ShowReply displays replying status on top of the editor
 func (editor *Editor) ShowReply(replyUser string) {
-	_, _, oldSlowmode := getTitleComponents(editor.title)
+	editor.replyingUser = replyUser
+	editor.RerenderTitle()
+}
 
-	separator := " | \u200c "
+// RerenderTitle re-renders the title text, making sure the reply user & mention, and slowmode are correct
+func (editor *Editor) RerenderTitle() {
+	separator := " | "
+	if editor.replyingUser == "" || editor.channelSlowMode == "" {
+		separator = ""
+	}
 
-	replyString := "Replying to: " + replyUser
-	if replyUser == "" {
+	mentionMark := ""
+	if editor.window.replyMention {
+		mentionMark = "(@) "
+	}
+
+	replyString := "Replying to: " + mentionMark + editor.replyingUser
+	if editor.replyingUser == "" {
 		replyString = ""
 	}
 
-	if replyUser == "" || oldSlowmode == "" {
-		separator = " \u200c "
+	slowmodeString := "Slowmode: " + editor.channelSlowMode
+	if editor.channelSlowMode == "" {
+		slowmodeString = ""
 	}
 
-	editor.SetTitle(replyString + separator + oldSlowmode)
-}
-
-// try and get the reply and slowmode statuses from the title if relevant
-func getTitleComponents(title string) (success bool, reply, slowmode string) {
-	separator := " \u200c " // separates the reply and slowmode parts
-	if !strings.Contains(title, separator) {
-		return false, "", ""
-	}
-	parts := strings.Split(title, separator)
-	reply = parts[0]
-	if len(reply) > 0 {
-		reply = reply[:len(reply)-3] // trim off " |" at the end
-	}
-	slowmode = parts[1]
-
-	return true, reply, slowmode
+	editor.SetTitle(replyString + separator + slowmodeString)
 }

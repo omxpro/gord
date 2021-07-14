@@ -51,6 +51,8 @@ var (
 	ChatViewSelectionBottom = addShortcut("selection_bottom", "Move selection to the downmost message",
 		chatview, tcell.NewEventKey(tcell.KeyEnd, 0, tcell.ModNone))
 
+	ToggleReplyMention = addShortcut("toggle_reply_mention", "Toggle reply mention",
+		multilineTextInput, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
 	ExpandSelectionToLeft = addShortcut("expand_selection_word_to_left", "Expand selection word to left",
 		multilineTextInput, tcell.NewEventKey(tcell.KeyLeft, 0, tcell.ModShift))
 	ExpandSelectionToRight = addShortcut("expand_selection_word_to_right", "Expand selection word to right",

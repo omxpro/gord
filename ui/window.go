@@ -96,6 +96,7 @@ type Window struct {
 	// reply stuff
 	currentReplyMsg *discordgo.Message
 	bottomBar       *components.BottomBar
+	replyMention    bool
 }
 
 type ActiveView bool
@@ -746,7 +747,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		} else if shortcuts.SendMessage.Equals(event) {
 			messageToSend := window.messageInput.GetText()
 			if window.selectedChannel != nil {
-				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg)
+				window.TrySendMessage(window.selectedChannel, messageToSend, window.currentReplyMsg, window.replyMention)
 				window.messageInput.ShowReply("") // remove replying message
 				window.currentReplyMsg = nil      // dont reply to the same message forever
 			}
@@ -1124,7 +1125,7 @@ func (window *Window) insertQuoteOfMessage(message *discordgo.Message) {
 	}
 }
 
-func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message) {
+func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message, replyMention bool) {
 	if targetChannel == nil {
 		return
 	}
@@ -1175,17 +1176,17 @@ func (window *Window) TrySendMessage(targetChannel *discordgo.Channel, message s
 						}
 					}()
 				} else {
-					window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg)
+					window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg, replyMention)
 				}
 			}, yesButton, "No")
 		})
 		return
 	}
 
-	window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg)
+	window.sendMessageWithLengthCheck(targetChannel, messagePrepared, replyMsg, replyMention)
 }
 
-func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message) {
+func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channel, message string, replyMsg *discordgo.Message, replyMention bool) {
 	overlength := len(message) - 2000
 	if overlength > 0 {
 		window.app.QueueUpdateDraw(func() {
@@ -1194,18 +1195,18 @@ func (window *Window) sendMessageWithLengthCheck(targetChannel *discordgo.Channe
 				func(button string) {
 					if button == sendAsFile {
 						window.messageInput.SetText("")
-						go window.sendMessageAsFile(message, targetChannel.ID, replyMsg)
+						go window.sendMessageAsFile(message, targetChannel.ID, replyMsg, replyMention)
 					}
 				}, sendAsFile, "Nothing")
 		})
 		return
 	}
 
-	go window.sendMessage(targetChannel.ID, message, replyMsg)
+	go window.sendMessage(targetChannel.ID, message, replyMsg, replyMention)
 }
 
-func (window *Window) sendMessageAsFile(message string, channel string, replyMsg *discordgo.Message) {
-	discordutil.SendMessageAsFile(window.session, message, channel, func(sendError error) {
+func (window *Window) sendMessageAsFile(message string, channel string, replyMsg *discordgo.Message, replyMention bool) {
+	discordutil.SendMessageAsFile(window.session, message, replyMsg, replyMention, channel, func(sendError error) {
 		retry := "Retry sending"
 		edit := "Edit"
 		window.app.QueueUpdateDraw(func() {
@@ -1214,7 +1215,7 @@ func (window *Window) sendMessageAsFile(message string, channel string, replyMsg
 				func(button string) {
 					switch button {
 					case retry:
-						go window.sendMessageAsFile(channel, message, replyMsg)
+						go window.sendMessageAsFile(channel, message, replyMsg, replyMention)
 					case edit:
 						window.messageInput.SetText(message)
 					}
@@ -1223,7 +1224,7 @@ func (window *Window) sendMessageAsFile(message string, channel string, replyMsg
 	})
 }
 
-func (window *Window) sendMessage(targetChannelID, message string, replyMsg *discordgo.Message) {
+func (window *Window) sendMessage(targetChannelID, message string, replyMsg *discordgo.Message, replyMention bool) {
 	window.app.QueueUpdateDraw(func() {
 		window.messageInput.SetText("")
 		window.chatView.internalTextView.ScrollToEnd()
@@ -1231,7 +1232,7 @@ func (window *Window) sendMessage(targetChannelID, message string, replyMsg *dis
 
 	var sendError error
 	if replyMsg != nil {
-		_, sendError = window.session.ChannelMessageSendReply(targetChannelID, message, replyMsg.Reference(), true)
+		_, sendError = window.session.ChannelMessageSendReply(targetChannelID, message, replyMsg.Reference(), replyMention)
 	} else {
 		_, sendError = window.session.ChannelMessageSend(targetChannelID, message)
 	}
@@ -1246,7 +1247,7 @@ func (window *Window) sendMessage(targetChannelID, message string, replyMsg *dis
 				func(button string) {
 					switch button {
 					case retry:
-						go window.sendMessage(targetChannelID, message, replyMsg)
+						go window.sendMessage(targetChannelID, message, replyMsg, replyMention)
 					case edit:
 						window.messageInput.SetText(message)
 					}
@@ -2645,7 +2646,7 @@ func (window *Window) LoadChannel(channel *discordgo.Channel) error {
 	return nil
 }
 
-// DisplaySlowmode takes the slowmode of a channel and the current remiaining countdown wait time and displays it on the chatbox
+// DisplaySlowmode takes the slowmode of a channel and the current remaining countdown wait time and displays it on the chatbox
 func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
 	// no slowmode
 	if totalTime == 0 {
@@ -2674,7 +2675,7 @@ func (window *Window) DisplaySlowmode(currentTime, totalTime int) {
 	}
 
 	// format and show
-	window.messageInput.ShowSlowMode("Channel Slowmode: " + currentAmount + totalAmount)
+	window.messageInput.ShowSlowMode(currentAmount + totalAmount)
 }
 
 // UpdateChatHeader updates the bordertitle of the chatviews container.o

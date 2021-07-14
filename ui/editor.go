@@ -470,12 +470,7 @@ func NewEditor(app *tview.Application) *Editor {
 			}
 		}
 
-		if shortcuts.CancelReply.Equals(event) {
-			if editor.window.currentReplyMsg != nil {
-				editor.ShowReply("")
-			}
-			editor.window.currentReplyMsg = nil
-		} else if shortcuts.MoveCursorLeft.Equals(event) {
+		if shortcuts.MoveCursorLeft.Equals(event) {
 			editor.MoveCursorLeft()
 		} else if shortcuts.ExpandSelectionToLeft.Equals(event) {
 			editor.SelectionToLeft()

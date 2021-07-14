@@ -51,8 +51,6 @@ var (
 	ChatViewSelectionBottom = addShortcut("selection_bottom", "Move selection to the downmost message",
 		chatview, tcell.NewEventKey(tcell.KeyEnd, 0, tcell.ModNone))
 
-	CancelReply = addShortcut("cancel_reply", "Cancel reply",
-		multilineTextInput, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
 	ExpandSelectionToLeft = addShortcut("expand_selection_word_to_left", "Expand selection word to left",
 		multilineTextInput, tcell.NewEventKey(tcell.KeyLeft, 0, tcell.ModShift))
 	ExpandSelectionToRight = addShortcut("expand_selection_word_to_right", "Expand selection word to right",
@@ -326,7 +324,9 @@ func Load() error {
 		return openError
 	}
 
-	defer shortcutsFile.Close()
+	defer func(shortcutsFile *os.File) {
+		_ = shortcutsFile.Close()
+	}(shortcutsFile)
 	decoder := json.NewDecoder(shortcutsFile)
 	tempShortcuts := make([]*Shortcut, 0)
 	shortcutsLoadError := decoder.Decode(&tempShortcuts)

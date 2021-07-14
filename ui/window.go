@@ -695,7 +695,12 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 		}
 
 		if event.Key() == tcell.KeyEsc {
-			window.exitMessageEditMode()
+			if window.editingMessageID != nil {
+				window.exitMessageEditMode()
+			} else if window.currentReplyMsg != nil {
+				window.messageInput.ShowReply("")
+				window.currentReplyMsg = nil
+			}
 			return nil
 		}
 
@@ -2351,6 +2356,10 @@ func (window *Window) ShowTFASetup() error {
 }
 
 func (window *Window) startEditingMessage(message *discordgo.Message) {
+	// cancel any replies first to avoid confusing user
+	window.messageInput.ShowReply("")
+	window.currentReplyMsg = nil
+
 	if message.Author.ID == window.session.State.User.ID {
 		window.messageInput.SetText(message.Content)
 		window.messageInput.SetBorderColor(tcell.ColorYellow)

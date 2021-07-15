@@ -267,6 +267,9 @@ func (login *Login) attemptLogin() {
 		panic("Was in state loginType=None during login attempt.")
 	case Token:
 		session, loginError := discordgo.NewWithToken(login.tokenInput.GetText())
+		if loginError != nil {
+			session,loginError = discordgo.NewWithToken("Bot " + login.tokenInput.GetText())
+		}
 		login.sessionChannel <- &loginAttempt{session, loginError}
 	case Password:
 		// Even if the login is supposed to be without two-factor-authentication, we

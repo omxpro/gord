@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -103,6 +104,19 @@ type ActiveView bool
 
 const Guilds ActiveView = true
 const Dms ActiveView = false
+
+// Discord returns either a float64 or string at random for the user settings, Very cool discord.
+// Probably to stop selfbots lmao
+func convertChannelID(channelID interface{}) string {
+	switch reflect.TypeOf(channelID).String() {
+	case "float64":
+		return fmt.Sprint(channelID.(float64))
+	case "string":
+		return channelID.(string)
+	}
+
+	return ""
+}
 
 //NewWindow constructs the whole application window and also registers all
 //necessary handlers and functions. If this function returns an error, we can't
@@ -795,6 +809,71 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 			}
 			return nil
 		}
+		if shortcuts.GuildListMarkMuted.Equals(event) {
+			selectedGuildNode := guildList.GetCurrentNode()
+			if selectedGuildNode != nil {
+				var (
+					guildID               = selectedGuildNode.GetReference().(string)
+					selectedGuildSettings *discordgo.UserGuildSettings
+				)
+
+				for _, guildSetting := range window.session.State.UserGuildSettings {
+					if guildSetting.GuildID == guildID {
+						selectedGuildSettings = guildSetting
+					}
+				}
+
+				if selectedGuildSettings == nil {
+					selectedGuildSettings = &discordgo.UserGuildSettings{}
+				}
+
+				var overrides = make(map[string]*discordgo.UserGuildSettingsChannelOverride)
+				for _, override := range selectedGuildSettings.ChannelOverrides {
+					overrides[convertChannelID(override.ChannelID)] = override
+				}
+
+				newGuildSettings, err := window.session.UserGuildSettingsEdit(guildID, &discordgo.UserGuildSettingsEdit{
+					SupressEveryone:      selectedGuildSettings.SupressEveryone,
+					Muted:                !selectedGuildSettings.Muted,
+					MobilePush:           selectedGuildSettings.MobilePush,
+					MessageNotifications: selectedGuildSettings.MessageNotifications,
+					ChannelOverrides:     overrides,
+				})
+				if err != nil {
+					window.ShowErrorDialog(err.Error())
+					return nil
+				}
+
+				guild, err := window.session.State.Guild(guildID)
+				if err != nil {
+					// all we're doing is getting the name, so we can fall back to restapi with no worries.
+					guild, err = window.session.Guild(guildID)
+					return nil
+				}
+
+				var name = guild.Name
+				if !newGuildSettings.Muted {
+					name = strings.TrimPrefix(name, "🔇")
+				} else if !strings.HasPrefix(name, "🔇") {
+					name = "🔇" + name
+				}
+
+				guildList.UpdateName(guildID, name)
+
+				// Hackiest fix of my life but works "flawlessly" (if you don't count how dumb this is) so no complaints (thanks discordgo!)
+				var tempSettings []*discordgo.UserGuildSettings
+				for _, guildSettings := range window.session.State.UserGuildSettings {
+					if guildSettings.GuildID == guildSettings.GuildID {
+						tempSettings = append(tempSettings, newGuildSettings)
+						continue
+					}
+
+					tempSettings = append(tempSettings, guildSettings)
+				}
+
+				window.session.State.UserGuildSettings = tempSettings
+			}
+		}
 
 		return event
 	}
@@ -823,6 +902,83 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 				}
 			}
 			return nil
+		}
+
+		if shortcuts.ChannelTreeMarkMuted.Equals(event) {
+			selectedChannelNode := channelTree.GetCurrentNode()
+			if selectedChannelNode != nil {
+				var (
+					channelID             = selectedChannelNode.GetReference().(string)
+					selectedGuildSettings *discordgo.UserGuildSettings
+				)
+				channel, err := window.session.State.Channel(channelID)
+				if err != nil {
+					window.ShowErrorDialog(err.Error())
+					return nil
+				}
+
+				if channel.Type != discordgo.ChannelTypeGuildText {
+					window.ShowErrorDialog("Can not mute that channel")
+					return nil
+				}
+
+				for _, guildSetting := range window.session.State.UserGuildSettings {
+					if channel.GuildID == guildSetting.GuildID {
+						selectedGuildSettings = guildSetting
+					}
+				}
+				if selectedGuildSettings == nil {
+					selectedGuildSettings = &discordgo.UserGuildSettings{}
+				}
+
+				var overrides = make(map[string]*discordgo.UserGuildSettingsChannelOverride)
+				for _, override := range selectedGuildSettings.ChannelOverrides {
+					var overrideChannelID = convertChannelID(override.ChannelID)
+					if channelID == overrideChannelID {
+						overrides[overrideChannelID] = &discordgo.UserGuildSettingsChannelOverride{
+							Muted:                !override.Muted,
+							MuteConfig:           nil,
+							MessageNotifications: override.MessageNotifications,
+							ChannelID:            overrideChannelID,
+						}
+						continue
+					}
+					overrides[overrideChannelID] = override
+				}
+
+				newGuildSettings, err := window.session.UserGuildSettingsEdit(channel.GuildID, &discordgo.UserGuildSettingsEdit{
+					SupressEveryone:      selectedGuildSettings.SupressEveryone,
+					Muted:                !selectedGuildSettings.Muted,
+					MobilePush:           selectedGuildSettings.MobilePush,
+					MessageNotifications: selectedGuildSettings.MessageNotifications,
+					ChannelOverrides:     overrides,
+				})
+				if err != nil {
+					window.ShowErrorDialog(err.Error())
+					return nil
+				}
+
+				var name = channel.Name
+				if !newGuildSettings.Muted {
+					name = strings.TrimPrefix(name, "🔇")
+				} else if !strings.HasPrefix(name, "🔇") {
+					name = "🔇" + name
+				}
+				channel.Name = name
+				channelTree.AddOrUpdateChannel(channel)
+
+				var tempSettings []*discordgo.UserGuildSettings
+				for _, guildSettings := range window.session.State.UserGuildSettings {
+					if guildSettings.GuildID == guildSettings.GuildID {
+						tempSettings = append(tempSettings, newGuildSettings)
+						continue
+					}
+
+					tempSettings = append(tempSettings, guildSettings)
+				}
+
+				window.session.State.UserGuildSettings = tempSettings
+			}
 		}
 
 		return event
@@ -2141,12 +2297,70 @@ func (window *Window) handleChatWindowShortcuts(event *tcell.EventKey) *tcell.Ev
 
 	if shortcuts.DirectionalFocusHandling(event, window.app) == nil {
 		return nil
-	}
-
-	if shortcuts.ToggleBareChat.Equals(event) {
+	} else if shortcuts.ToggleBareChat.Equals(event) {
 		window.toggleBareChat()
-	} else if shortcuts.FocusMessageInput.Equals(event) {
+	} else if shortcuts.FocusMessageInput.Equals(event) || (shortcuts.GroupChannelMarkMuted.Equals(event) && window.GetSelectedChannel() != nil && window.GetSelectedChannel().Type == discordgo.ChannelTypeGroupDM) {
+		if window.privateList.internalTreeView.HasFocus() {
+			var (
+				channel         = window.GetSelectedChannel()
+				channelOverride *discordgo.UserGuildSettingsChannelOverride
+			)
+			for _, guildSetting := range window.session.State.UserGuildSettings {
+				if guildSetting.GuildID != "" {
+					continue
+				}
+
+				for _, override := range guildSetting.ChannelOverrides {
+					if override.ChannelID == channel.ID {
+						channelOverride = override
+					}
+				}
+			}
+
+			if channelOverride == nil {
+				channelOverride = &discordgo.UserGuildSettingsChannelOverride{}
+			}
+
+			newSettings, err := window.session.UserGuildSettingsEdit("%40me", &discordgo.UserGuildSettingsEdit{
+				SupressEveryone:      false,
+				Muted:                !channelOverride.Muted,
+				MobilePush:           true,
+				MessageNotifications: 0,
+				ChannelOverrides: map[string]*discordgo.UserGuildSettingsChannelOverride{
+					channel.ID: {Muted: !channelOverride.Muted, MuteConfig: nil, MessageNotifications: 3, ChannelID: channel.ID},
+				},
+			})
+			if err != nil {
+				window.ShowErrorDialog(err.Error())
+				return nil
+			}
+
+			var name = channel.Name
+			if !newSettings.Muted {
+				name = strings.TrimPrefix(name, "🔇")
+			} else if !strings.HasPrefix(name, "🔇") {
+				name = "🔇" + name
+			}
+			channel.Name = name
+			window.privateList.AddOrUpdateChannel(channel)
+
+			var tempSettings []*discordgo.UserGuildSettings
+			for _, guildSettings := range window.session.State.UserGuildSettings {
+				if guildSettings.GuildID == guildSettings.GuildID {
+					tempSettings = append(tempSettings, newSettings)
+					continue
+				}
+
+				tempSettings = append(tempSettings, guildSettings)
+			}
+
+			window.session.State.UserGuildSettings = tempSettings
+
+			return nil
+		}
+
 		window.app.SetFocus(window.messageInput.GetPrimitive())
+
 	} else if shortcuts.FocusMessageContainer.Equals(event) {
 		window.app.SetFocus(window.chatView.internalTextView)
 	} else if shortcuts.EventsEqual(event, shortcutsDialogShortcut) {

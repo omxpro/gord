@@ -268,7 +268,7 @@ func (login *Login) attemptLogin() {
 	case Token:
 		session, loginError := discordgo.NewWithToken(login.tokenInput.GetText())
 		if loginError != nil {
-			session,loginError = discordgo.NewWithToken("Bot " + login.tokenInput.GetText())
+			session, loginError = discordgo.NewWithToken("Bot " + login.tokenInput.GetText())
 		}
 		login.sessionChannel <- &loginAttempt{session, loginError}
 	case Password:

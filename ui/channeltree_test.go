@@ -18,19 +18,16 @@ func TestChannelTree(t *testing.T) {
 
 	c1 := &discordgo.Channel{
 		ID:       "C1",
-		ParentID: "C1",
 		Name:     "C1",
 		Position: 2,
 	}
 	c2 := &discordgo.Channel{
 		ID:       "C2",
-		ParentID: "C2",
 		Name:     "C2",
 		Position: 1,
 	}
 	c3 := &discordgo.Channel{
 		ID:       "C3",
-		ParentID: "C3",
 		Name:     "C3",
 		Position: 3,
 		PermissionOverwrites: []*discordgo.PermissionOverwrite{

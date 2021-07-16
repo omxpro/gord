@@ -101,6 +101,7 @@ func (channelTree *ChannelTree) LoadGuild(guildID string) error {
 			channel.ParentID != "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
+
 		channelTree.createTopLevelChannelNodes(channel)
 	}
 	// Categories; Must be handled before second level channels, as the
@@ -143,6 +144,11 @@ CATEGORY_LOOP:
 			channel.ParentID == "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
+
+		if readstate.IsGuildChannelMuted(channel) {
+			channel.Name = "🔇" + channel.Name
+		}
+
 		channelTree.createSecondLevelChannelNodes(channel)
 	}
 	channelTree.SetCurrentNode(channelTree.GetRoot())
@@ -171,10 +177,6 @@ func (channelTree *ChannelTree) createChannelNode(channel *discordgo.Channel) *t
 	channelNode := tview.NewTreeNode(tviewutil.Escape(channel.Name))
 	if channel.NSFW {
 		channelNode.AddPrefix(nsfwIndicator)
-	}
-
-	if readstate.IsGuildChannelMuted(channel) {
-		channelNode.AddPrefix("🔇")
 	}
 
 	// Adds a padlock prefix if the channel if not readable by the everyone group

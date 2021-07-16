@@ -14,7 +14,6 @@ func TestChannelTree(t *testing.T) {
 	simScreen.SetSize(10, 10)
 
 	state := discordgo.NewState()
-	state.UserGuildSettings = []*discordgo.UserGuildSettings{}
 
 	c1 := &discordgo.Channel{
 		ID:       "C1",

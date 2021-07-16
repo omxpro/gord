@@ -173,6 +173,10 @@ func (channelTree *ChannelTree) createChannelNode(channel *discordgo.Channel) *t
 		channelNode.AddPrefix(nsfwIndicator)
 	}
 
+	if readstate.IsGuildChannelMuted(channel) {
+		channelNode.AddPrefix("🔇")
+	}
+
 	// Adds a padlock prefix if the channel if not readable by the everyone group
 	if config.Current.IndicateChannelAccessRestriction {
 		for _, permission := range channel.PermissionOverwrites {

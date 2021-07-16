@@ -118,6 +118,16 @@ func convertChannelID(channelID interface{}) string {
 	return ""
 }
 
+func overrideExists(slice []*discordgo.UserGuildSettingsChannelOverride, find string) (*discordgo.UserGuildSettingsChannelOverride, bool) {
+	for _, item := range slice {
+		if convertChannelID(item.ChannelID) == find {
+			return item, true
+		}
+	}
+
+	return nil, false
+}
+
 //NewWindow constructs the whole application window and also registers all
 //necessary handlers and functions. If this function returns an error, we can't
 //start the application.
@@ -927,39 +937,40 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 						selectedGuildSettings = guildSetting
 					}
 				}
+
 				if selectedGuildSettings == nil {
 					selectedGuildSettings = &discordgo.UserGuildSettings{}
 				}
 
 				var overrides = make(map[string]*discordgo.UserGuildSettingsChannelOverride)
-				for _, override := range selectedGuildSettings.ChannelOverrides {
-					var overrideChannelID = convertChannelID(override.ChannelID)
-					if channelID == overrideChannelID {
-						overrides[overrideChannelID] = &discordgo.UserGuildSettingsChannelOverride{
-							Muted:                !override.Muted,
-							MuteConfig:           nil,
-							MessageNotifications: override.MessageNotifications,
-							ChannelID:            overrideChannelID,
-						}
-						continue
+
+				if overrideData, exists := overrideExists(selectedGuildSettings.ChannelOverrides, channelID); exists {
+					overrides[channelID] = &discordgo.UserGuildSettingsChannelOverride{
+						Muted:                !overrideData.Muted,
+						MessageNotifications: 3,
+						ChannelID:            channelID,
 					}
-					overrides[overrideChannelID] = override
+				} else {
+					overrides[channelID] = &discordgo.UserGuildSettingsChannelOverride{
+						Muted:                true,
+						MessageNotifications: 3,
+						ChannelID:            channelID,
+					}
 				}
 
-				newGuildSettings, err := window.session.UserGuildSettingsEdit(channel.GuildID, &discordgo.UserGuildSettingsEdit{
+				newGuildSettings, err := window.session.UserGuildSettingsEdit(selectedGuildSettings.GuildID, &discordgo.UserGuildSettingsEdit{
 					SupressEveryone:      selectedGuildSettings.SupressEveryone,
-					Muted:                !selectedGuildSettings.Muted,
+					Muted:                selectedGuildSettings.Muted,
 					MobilePush:           selectedGuildSettings.MobilePush,
 					MessageNotifications: selectedGuildSettings.MessageNotifications,
 					ChannelOverrides:     overrides,
 				})
 				if err != nil {
 					window.ShowErrorDialog(err.Error())
-					return nil
 				}
 
 				var name = channel.Name
-				if !newGuildSettings.Muted {
+				if overrides[channelID] == nil || !overrides[channelID].Muted {
 					name = strings.TrimPrefix(name, "🔇")
 				} else if !strings.HasPrefix(name, "🔇") {
 					name = "🔇" + name

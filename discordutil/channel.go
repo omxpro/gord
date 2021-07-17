@@ -62,10 +62,6 @@ func GetPrivateChannelNameUnescaped(channel *discordgo.Channel) string {
 		channelName = "Unnamed"
 	}
 
-	if readstate.IsPrivateChannelMuted(channel) {
-		channelName = "🔇" + channelName
-	}
-
 	return channelName
 }
 

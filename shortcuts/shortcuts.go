@@ -147,9 +147,14 @@ var (
 	ToggleBareChat = addShortcut("toggle_bare_chat", "Toggle bare chat",
 		globalScope, tcell.NewEventKey(tcell.KeyCtrlB, rune(tcell.KeyCtrlB), tcell.ModCtrl))
 
+	GroupChannelMarkMuted = addShortcut("group_channel_mark_muted", "Mark group channel as muted",
+		globalScope, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
+	GuildListMarkMuted = addShortcut("guild_mark_muted", "Mark server as muted",
+		guildlist, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
 	GuildListMarkRead = addShortcut("guild_mark_read", "Mark server as read",
 		guildlist, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
-
+	ChannelTreeMarkMuted = addShortcut("channel_mark_muted", "Mark channel as muted",
+		channeltree, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
 	ChannelTreeMarkRead = addShortcut("channel_mark_read", "Mark channel as read",
 		channeltree, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
 

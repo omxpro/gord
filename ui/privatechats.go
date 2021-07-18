@@ -10,8 +10,8 @@ import (
 	"github.com/cainy-a/gord/readstate"
 	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/cainy-a/gord/tview"
 
 	"github.com/cainy-a/gord/config"
 )
@@ -141,7 +141,12 @@ func (privateList *PrivateChatList) addChannel(channel *discordgo.Channel) {
 }
 
 func createPrivateChannelNode(channel *discordgo.Channel) *tview.TreeNode {
-	channelNode := tview.NewTreeNode(discordutil.GetPrivateChannelName(channel))
+	name := discordutil.GetPrivateChannelName(channel)
+	if readstate.IsPrivateChannelMuted(channel) {
+		name = "🔇" + name
+	}
+
+	channelNode := tview.NewTreeNode(name)
 	channelNode.SetReference(channel.ID)
 	return channelNode
 }

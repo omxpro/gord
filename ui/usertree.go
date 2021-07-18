@@ -8,8 +8,8 @@ import (
 	"github.com/cainy-a/gord/discordutil"
 	"github.com/cainy-a/gord/ui/tviewutil"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
 )
 
@@ -195,6 +195,7 @@ func (userTree *UserTree) AddOrUpdateMember(member *discordgo.Member) {
 func (userTree *UserTree) addOrUpdateMember(member *discordgo.Member) {
 	nameToUse := "[" + discordutil.GetMemberColor(userTree.state, member) +
 		"]" + discordutil.GetMemberName(member)
+	userTree.state.MemberAdd(member)
 
 	userNode, contains := userTree.userNodes[member.User.ID]
 	if contains && userNode != nil {

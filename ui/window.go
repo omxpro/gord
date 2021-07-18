@@ -927,7 +927,7 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 					return nil
 				}
 
-				if channel.Type != discordgo.ChannelTypeGuildText {
+				if channel.Type != discordgo.ChannelTypeGuildText && channel.Type != discordgo.ChannelTypeGuildCategory {
 					window.ShowErrorDialog("Can not mute that channel")
 					return nil
 				}

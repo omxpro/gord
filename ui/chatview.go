@@ -15,6 +15,7 @@ import (
 
 	"github.com/cainy-a/gord/config"
 	"github.com/cainy-a/gord/discordutil"
+	"github.com/cainy-a/gord/readstate"
 	"github.com/cainy-a/gord/shortcuts"
 	"github.com/cainy-a/gord/times"
 	"github.com/cainy-a/gord/ui/tviewutil"
@@ -390,10 +391,35 @@ func (chatView *ChatView) createDateDelimiterIfNecessary(messages []*discordgo.M
 	return ""
 }
 
+func (chatView *ChatView) createNewMessageDelimiterIfNecessary(messages []*discordgo.Message, index int) string {
+	message := messages[index]
+
+	channel, err := chatView.state.GuildChannel(message.GuildID, message.ChannelID)
+	if err != nil {
+		return ""
+	}
+
+	_, _, width, _ := chatView.internalTextView.GetInnerRect()
+	dashesLeft := strings.Repeat(dashCharacter, width)
+
+	if !readstate.HasBeenRead(channel, channel.LastMessageID) && message.ID == channel.LastMessageID {
+		return "\n[red]" + dashesLeft
+	}
+
+	return ""
+}
+
 // printDateDelimiterIfNecessary prints a date delimiter if the message is the
 // first message or if the dates are different between the current a
 func (chatView *ChatView) printDateDelimiterIfNecessary(messages []*discordgo.Message, index int) {
 	delimiter := chatView.createDateDelimiterIfNecessary(messages, index)
+	if delimiter != "" {
+		fmt.Fprint(chatView.internalTextView, delimiter)
+	}
+}
+
+func (chatView *ChatView) printNewMessageDelimterIfNecessary(messages []*discordgo.Message, index int) {
+	delimiter := chatView.createNewMessageDelimiterIfNecessary(messages, index)
 	if delimiter != "" {
 		fmt.Fprint(chatView.internalTextView, delimiter)
 	}
@@ -1112,6 +1138,7 @@ func (chatView *ChatView) SetMessages(messages []*discordgo.Message) {
 	wasScrolledToTheEnd := chatView.internalTextView.IsScrolledToEnd()
 
 	for index, message := range messages {
+		chatView.printNewMessageDelimterIfNecessary(messages, index)
 		chatView.printDateDelimiterIfNecessary(messages, index)
 		chatView.addMessageInternal(message)
 	}

@@ -8,7 +8,7 @@ require (
 	github.com/Bios-Marcel/shortnotforlong v1.1.1
 	github.com/alecthomas/chroma v0.7.3
 	github.com/atotto/clipboard v0.1.2
-	github.com/cainy-a/discordgo v0.23.3-2
+	github.com/cainy-a/discordgo v0.23.2-3
 	github.com/gdamore/tcell/v2 v2.0.0
 	github.com/gen2brain/beeep v0.0.0-20200526185328-e9c15c258e28
 	github.com/google/go-github/v29 v29.0.3

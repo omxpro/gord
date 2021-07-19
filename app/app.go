@@ -57,6 +57,7 @@ func SetupApplicationWithAccount(app *tview.Application, account string) {
 			log.Fatalf("Error persisting configuration (%s).\n", persistError.Error())
 		}
 
+		discord.State.TrackPresences = true
 		discord.State.MaxMessageCount = 100
 
 		readstate.Load(discord.State)

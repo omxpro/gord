@@ -101,12 +101,6 @@ func (channelTree *ChannelTree) LoadGuild(guildID string) error {
 			channel.ParentID != "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
-
-		// Really hacky solution to fix a very stupid problem
-		if channelTree.state.UserGuildSettings != nil && readstate.IsGuildChannelMuted(channel) {
-			channel.Name = "🔇" + channel.Name
-		}
-
 		channelTree.createTopLevelChannelNodes(channel)
 	}
 	// Categories; Must be handled before second level channels, as the
@@ -124,9 +118,6 @@ CATEGORY_LOOP:
 					//We have at least one child with read-permissions,
 					//therefore we add the category as the channel will need
 					//a parent.
-					if readstate.IsGuildChannelMuted(channel) {
-						channel.Name = "🔇" + channel.Name
-					}
 					channelTree.createChannelCategoryNode(channel)
 					continue CATEGORY_LOOP
 				}
@@ -140,10 +131,6 @@ CATEGORY_LOOP:
 
 		//If the category is childless, we want to add it anyway.
 		if childless {
-			if readstate.IsGuildChannelMuted(channel) {
-				channel.Name = "🔇" + channel.Name
-			}
-
 			channelTree.createChannelCategoryNode(channel)
 		}
 	}
@@ -156,11 +143,6 @@ CATEGORY_LOOP:
 			channel.ParentID == "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
-
-		if readstate.IsGuildChannelMuted(channel) {
-			channel.Name = "🔇" + channel.Name
-		}
-
 		channelTree.createSecondLevelChannelNodes(channel)
 	}
 	channelTree.SetCurrentNode(channelTree.GetRoot())

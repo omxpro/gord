@@ -3,9 +3,9 @@ package ui
 import (
 	"fmt"
 
-	"github.com/cainy-a/discordgo"
 	"github.com/cainy-a/gord/readstate"
 	"github.com/cainy-a/gord/tview"
+	"github.com/cainy-a/discordgo"
 
 	"github.com/cainy-a/gord/config"
 	"github.com/cainy-a/gord/ui/tviewutil"
@@ -46,9 +46,6 @@ func NewGuildList(guilds []*discordgo.Guild) *GuildList {
 		//for the respective GuildCreate event to be sent to us.
 		if guild.Name == "" {
 			continue
-		}
-		if readstate.IsGuildMuted(guild.ID) {
-			guild.Name = "🔇" + guild.Name
 		}
 		guildNode := tview.NewTreeNode(tviewutil.Escape(guild.Name))
 		guildNode.SetReference(guild.ID)

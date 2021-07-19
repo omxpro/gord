@@ -66,8 +66,8 @@ func GetPrivateChannelNameUnescaped(channel *discordgo.Channel) string {
 }
 
 // GetPrivateChannelName generates a name for a private channel.
-func GetPrivateChannelName(channel *discordgo.Channel) string {
-	return tviewutil.Escape(GetPrivateChannelNameUnescaped(channel))
+func GetPrivateChannelName(channel *discordgo.Channel, status string) string {
+	return status + tviewutil.Escape(GetPrivateChannelNameUnescaped(channel))
 }
 
 // FindDMChannelWithUser tries to find a DM channel with the specified user as

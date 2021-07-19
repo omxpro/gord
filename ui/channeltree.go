@@ -27,6 +27,8 @@ var (
 	mentionedIndicator = "(@)"
 	nsfwIndicator      = tviewutil.Escape("🔞")
 	lockedIndicator    = tviewutil.Escape("\U0001F512")
+	voiceIndicator     = tviewutil.Escape("🎤")
+	muteIndicator      = tviewutil.Escape("🔇")
 )
 
 // ChannelTree is the component that displays the channel hierarchy of the
@@ -97,7 +99,9 @@ func (channelTree *ChannelTree) LoadGuild(guildID string) error {
 
 	// Top level channel
 	for _, channel := range channels {
-		if (channel.Type != discordgo.ChannelTypeGuildText && channel.Type != discordgo.ChannelTypeGuildNews) ||
+		if (channel.Type != discordgo.ChannelTypeGuildText &&
+			channel.Type != discordgo.ChannelTypeGuildNews &&
+			channel.Type != discordgo.ChannelTypeGuildVoice) ||
 			channel.ParentID != "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
@@ -149,16 +153,18 @@ CATEGORY_LOOP:
 	}
 	// Second level channel
 	for _, channel := range channels {
-		//Only Text and News are supported. If new channel types are
+		//Only Text, News, Voice are supported. If new channel types are
 		//added, support first needs to be confirmed or implemented. This is
 		//in order to avoid faulty runtime behaviour.
-		if (channel.Type != discordgo.ChannelTypeGuildText && channel.Type != discordgo.ChannelTypeGuildNews) ||
+		if (channel.Type != discordgo.ChannelTypeGuildText &&
+			channel.Type != discordgo.ChannelTypeGuildNews &&
+			channel.Type != discordgo.ChannelTypeGuildVoice) ||
 			channel.ParentID == "" || !discordutil.HasReadMessagesPermission(channel.ID, state) {
 			continue
 		}
 
 		if readstate.IsGuildChannelMuted(channel) {
-			channel.Name = "🔇" + channel.Name
+			channel.Name = muteIndicator + channel.Name
 		}
 
 		channelTree.createSecondLevelChannelNodes(channel)
@@ -168,7 +174,12 @@ CATEGORY_LOOP:
 }
 
 func (channelTree *ChannelTree) createTopLevelChannelNodes(channel *discordgo.Channel) {
-	channelNode := channelTree.createTextChannelNode(channel)
+	var channelNode *tview.TreeNode
+	if channel.Type == discordgo.ChannelTypeGuildVoice {
+		channelNode = channelTree.createVoiceChannelNode(channel)
+	} else {
+		channelNode = channelTree.createTextChannelNode(channel)
+	}
 	channelTree.GetRoot().AddChild(channelNode)
 }
 
@@ -187,9 +198,15 @@ func (channelTree *ChannelTree) createSecondLevelChannelNodes(channel *discordgo
 
 func (channelTree *ChannelTree) createChannelNode(channel *discordgo.Channel) *tview.TreeNode {
 	channelNode := tview.NewTreeNode(tviewutil.Escape(channel.Name))
+	if channel.Type == discordgo.ChannelTypeGuildVoice {
+		channelNode.AddPrefix(voiceIndicator)
+	}
 	if channel.NSFW {
 		channelNode.AddPrefix(nsfwIndicator)
 	}
+	/*if readstate.IsGuildChannelMuted(channel) {
+		channelNode.AddPrefix(muteIndicator)
+	}*/
 
 	// Adds a padlock prefix if the channel if not readable by the everyone group
 	if config.Current.IndicateChannelAccessRestriction {
@@ -214,10 +231,14 @@ func (channelTree *ChannelTree) createTextChannelNode(channel *discordgo.Channel
 	}
 
 	if readstate.HasBeenMentioned(channel.ID) {
-		channelTree.markNodeAsMentioned(channelNode, channel.ID)
+		channelTree.markNodeAsMentioned(channelNode)
 	}
 
 	return channelNode
+}
+
+func (channelTree *ChannelTree) createVoiceChannelNode(channel *discordgo.Channel) *tview.TreeNode {
+	return channelTree.createChannelNode(channel)
 }
 
 // AddOrUpdateChannel either adds a new node for the given channel or updates
@@ -342,11 +363,11 @@ func (channelTree *ChannelTree) MarkAsMentioned(channelID string) {
 	node := tviewutil.GetNodeByReference(channelID, channelTree.TreeView)
 	if node != nil {
 		channelTree.channelStates[node] = channelMentioned
-		channelTree.markNodeAsMentioned(node, channelID)
+		channelTree.markNodeAsMentioned(node)
 	}
 }
 
-func (channelTree *ChannelTree) markNodeAsMentioned(node *tview.TreeNode, channelID string) {
+func (channelTree *ChannelTree) markNodeAsMentioned(node *tview.TreeNode) {
 	channelTree.markNodeAsUnread(node)
 	node.AddPrefix(mentionedIndicator)
 	node.SortPrefixes(channelTree.prefixSorter)

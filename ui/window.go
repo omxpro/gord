@@ -178,7 +178,10 @@ func NewWindow(app *tview.Application, session *discordgo.Session, readyEvent *d
 	window.channelTree = channelTree
 	channelTree.SetOnChannelSelect(func(channelID string) {
 		channel, cacheError := window.session.State.Channel(channelID)
-		if cacheError == nil && channel.Type != discordgo.ChannelTypeGuildCategory {
+		if cacheError == nil &&
+			channel.Type != discordgo.ChannelTypeGuildCategory &&
+			channel.Type != discordgo.ChannelTypeGuildVoice {
+
 			loadError := window.LoadChannel(channel)
 			if loadError != nil {
 				window.ShowErrorDialog(loadError.Error())

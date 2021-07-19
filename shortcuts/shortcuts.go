@@ -30,7 +30,7 @@ var (
 		chatview, tcell.NewEventKey(tcell.KeyRune, 'd', tcell.ModNone))
 	ReplySelectedMessage = addShortcut("reply_selected_message", "Reply to selected message",
 		chatview, tcell.NewEventKey(tcell.KeyRune, 'r', tcell.ModNone))
-	NewDirectMessage = addShortcut("new_direct_message", "Create a new direct message channel with this user",
+	NewDirectMessage = addShortcut("new_direct_message", "[red]!!Disabled!! Create a new DM with this user",
 		chatview, tcell.NewEventKey(tcell.KeyRune, 'p', tcell.ModNone))
 	CopySelectedMessageLink = addShortcut("copy_selected_message_link", "Copy link to selected message",
 		chatview, tcell.NewEventKey(tcell.KeyRune, 'l', tcell.ModNone))

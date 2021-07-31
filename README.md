@@ -35,10 +35,10 @@ Discord Inc.
 Gord is available on multiple package managers (2 and counting).
 
 #### AUR (Arch Linux)
-On Arch Linux, you can install the latest release with `gord-bin`,
-or get the latest commit with `gord-git`.
+On Arch Linux, you can install the latest release with [gord-bin](https://aur.archlinux.org/packages/gord-bin/),
+or get the latest commit with [gord-git](https://aur.archlinux.org/packages/gord-git/).
 
-A good AUR helper is `yay`, which can be installed manually [from the AUR](https://aur.archlinux.org/packages/yay/).
+A good AUR helper is `yay`, which can be installed manually [from the AUR](https://github.com/Jguer/yay#installation).
 ```
 yay -S gord-bin
 ```

@@ -103,7 +103,7 @@ func (privateList *PrivateChatList) AddOrUpdateChannel(channel *discordgo.Channe
 	for _, node := range privateList.chatsNode.GetChildren() {
 		referenceChannelID, ok := node.GetReference().(string)
 		if ok && referenceChannelID == channel.ID {
-			node.SetText(discordutil.GetPrivateChannelName(channel))
+			node.SetText(discordutil.GetPrivateChannelName(channel, ""))
 			return
 		}
 	}
@@ -123,12 +123,17 @@ func (privateList *PrivateChatList) AddOrUpdateChannel(channel *discordgo.Channe
 }
 
 func (privateList *PrivateChatList) prependChannel(channel *discordgo.Channel) {
-	newChildren := append([]*tview.TreeNode{createPrivateChannelNode(channel)}, privateList.chatsNode.GetChildren()...)
+	newChildren := append([]*tview.TreeNode{createPrivateChannelNode(channel, "")}, privateList.chatsNode.GetChildren()...)
 	privateList.chatsNode.SetChildren(newChildren)
 }
 
 func (privateList *PrivateChatList) addChannel(channel *discordgo.Channel) {
-	newNode := createPrivateChannelNode(channel)
+	var status string
+	if channel.Type == discordgo.ChannelTypeDM {
+		status = privateList.FetchStatus(channel.OwnerID)
+	}
+
+	newNode := createPrivateChannelNode(channel, status)
 	if !readstate.HasBeenRead(channel, channel.LastMessageID) {
 		privateList.privateChannelStates[newNode] = unread
 		if tview.IsVtxxx {
@@ -140,13 +145,8 @@ func (privateList *PrivateChatList) addChannel(channel *discordgo.Channel) {
 	privateList.chatsNode.AddChild(newNode)
 }
 
-func createPrivateChannelNode(channel *discordgo.Channel) *tview.TreeNode {
-	name := discordutil.GetPrivateChannelName(channel)
-	if readstate.IsPrivateChannelMuted(channel) {
-		name = "🔇" + name
-	}
-
-	channelNode := tview.NewTreeNode(name)
+func createPrivateChannelNode(channel *discordgo.Channel, status string) *tview.TreeNode {
+	channelNode := tview.NewTreeNode(discordutil.GetPrivateChannelName(channel, status))
 	channelNode.SetReference(channel.ID)
 	return channelNode
 }
@@ -179,7 +179,7 @@ func (privateList *PrivateChatList) AddOrUpdateFriend(user *discordgo.User) {
 }
 
 func (privateList *PrivateChatList) addFriend(user *discordgo.User) {
-	friendNode := tview.NewTreeNode(user.Username)
+	friendNode := tview.NewTreeNode(privateList.FetchStatus(user.ID) + " " + user.Username)
 	friendNode.SetReference(user.ID)
 	privateList.friendsNode.AddChild(friendNode)
 }
@@ -197,6 +197,22 @@ func (privateList *PrivateChatList) RemoveFriend(userID string) {
 	}
 
 	privateList.friendsNode.SetChildren(newChildren)
+}
+
+func (privateList *PrivateChatList) FetchStatus(id string) (status string) {
+	if id == privateList.state.User.ID {
+		status = statuses[privateList.state.Settings.Status]
+		return
+	}
+
+	for _, presence := range privateList.state.Presences {
+		if presence.User.ID == id {
+			status = statuses[presence.Status]
+		}
+	}
+
+	status = statuses[discordgo.StatusOffline]
+	return
 }
 
 // RemoveChannel removes a channel node if present.

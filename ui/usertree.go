@@ -13,6 +13,16 @@ import (
 	tview "github.com/gord-project/gview"
 )
 
+var (
+	statuses = map[discordgo.Status]string{
+		discordgo.StatusOnline:       "[green]⚪",
+		discordgo.StatusIdle:         "[yellow]⚪",
+		discordgo.StatusDoNotDisturb: "[red]⚪",
+		discordgo.StatusInvisible:    "[gray]⚪", // last two are effectively the same
+		discordgo.StatusOffline:      "[gray]⚪",
+	}
+)
+
 // UserTree represents the visual list of users in a guild.
 type UserTree struct {
 	*sync.Mutex
@@ -51,6 +61,22 @@ func (userTree *UserTree) Clear() {
 	userTree.Lock()
 	defer userTree.Unlock()
 	userTree.clear()
+}
+
+func (userTree *UserTree) FetchStatus(id string) (status string) {
+	if id == userTree.state.User.ID {
+		status = statuses[userTree.state.Settings.Status]
+		return
+	}
+
+	for _, presence := range userTree.state.Presences {
+		if presence.User.ID == id {
+			status = statuses[presence.Status]
+		}
+	}
+
+	status = statuses[discordgo.StatusOffline]
+	return
 }
 
 func (userTree *UserTree) rootNode() *tview.TreeNode {
@@ -193,9 +219,9 @@ func (userTree *UserTree) AddOrUpdateMember(member *discordgo.Member) {
 }
 
 func (userTree *UserTree) addOrUpdateMember(member *discordgo.Member) {
-	nameToUse := "[" + discordutil.GetMemberColor(userTree.state, member) +
+
+	nameToUse := userTree.FetchStatus(member.User.ID) + "[" + discordutil.GetMemberColor(userTree.state, member) +
 		"]" + discordutil.GetMemberName(member)
-	userTree.state.MemberAdd(member)
 
 	userNode, contains := userTree.userNodes[member.User.ID]
 	if contains && userNode != nil {
@@ -231,7 +257,7 @@ func (userTree *UserTree) AddOrUpdateUser(user *discordgo.User) {
 }
 
 func (userTree *UserTree) addOrUpdateUser(user *discordgo.User) {
-	nameToUse := "[" + discordutil.GetUserColor(user) +
+	nameToUse := userTree.FetchStatus(user.ID) + "[" + discordutil.GetUserColor(user) +
 		"]" + discordutil.GetUserName(user)
 
 	userNode, contains := userTree.userNodes[user.ID]

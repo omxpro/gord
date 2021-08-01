@@ -1,9 +1,9 @@
 package tviewutil
 
 import (
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/tview"
 	"github.com/mattn/go-runewidth"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/tview"
 )
 
 // Escape delegates to tview escape, optionally doing additional escaping.

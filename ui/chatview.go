@@ -13,18 +13,18 @@ import (
 	linkshortener "github.com/Bios-Marcel/shortnotforlong"
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/discordutil"
-	"github.com/cainy-a/gord/readstate"
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/times"
-	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/discordutil"
+	"github.com/yellowsink/gord/readstate"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/times"
+	"github.com/yellowsink/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 
 	// Blank import for initializing the tview formatter
-	_ "github.com/cainy-a/gord/syntax"
+	_ "github.com/yellowsink/gord/syntax"
 
 	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters"

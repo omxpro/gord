@@ -7,14 +7,14 @@ import (
 	"strings"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 
-	"github.com/cainy-a/gord/commands/commandimpls"
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/readstate"
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/ui"
-	"github.com/cainy-a/gord/version"
+	"github.com/yellowsink/gord/commands/commandimpls"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/readstate"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/ui"
+	"github.com/yellowsink/gord/version"
 )
 
 // SetupApplicationWithAccount launches the whole application and might

@@ -3,11 +3,11 @@ package components
 import (
 	"sync"
 
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/mattn/go-runewidth"
 	"github.com/rivo/uniseg"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/tview"
 )
 
 // BottomBar custom simple component to render static information at the bottom

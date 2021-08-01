@@ -2,13 +2,13 @@ package main
 
 import (
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 const helloWorld = `[green]package[white] main
 
 [green]import[white] (
-    [red]"github.com/cainy-a/gord/tview"[white]
+    [red]"github.com/yellowsink/gord/tview"[white]
 )
 
 [green]func[white] [yellow]main[white]() {

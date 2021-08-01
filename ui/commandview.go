@@ -3,8 +3,8 @@ package ui
 import (
 	"strings"
 
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/tview"
 )
 
 const noHistoryIndexSelected = -1

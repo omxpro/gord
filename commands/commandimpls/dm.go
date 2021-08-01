@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/cainy-a/gord/discordutil"
-	"github.com/cainy-a/gord/ui"
 	"github.com/cainy-a/discordgo"
+	"github.com/yellowsink/gord/discordutil"
+	"github.com/yellowsink/gord/ui"
 )
 
 const (

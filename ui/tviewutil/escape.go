@@ -3,7 +3,7 @@
 package tviewutil
 
 import (
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 // Escape delegates to tview escape, optionally doing additional escaping.

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 // The width of the code window.

@@ -21,7 +21,7 @@ import (
 	"github.com/robertkrimen/otto"
 	_ "github.com/robertkrimen/otto/underscore"
 
-	"github.com/cainy-a/gord/scripting"
+	"github.com/yellowsink/gord/scripting"
 )
 
 var (

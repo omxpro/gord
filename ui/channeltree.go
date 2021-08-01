@@ -4,14 +4,14 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/discordutil"
-	"github.com/cainy-a/gord/readstate"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/discordutil"
+	"github.com/yellowsink/gord/readstate"
 )
 
 type channelState int

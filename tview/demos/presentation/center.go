@@ -1,6 +1,6 @@
 package main
 
-import "github.com/cainy-a/gord/tview"
+import "github.com/yellowsink/gord/tview"
 
 // Center returns a new primitive which shows the provided primitive in its
 // center, given the provided primitive's size.

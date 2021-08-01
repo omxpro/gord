@@ -4,13 +4,13 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/discordutil"
-	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/discordutil"
+	"github.com/yellowsink/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/tview"
 )
 
 // UserTree represents the visual list of users in a guild.

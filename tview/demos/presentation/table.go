@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 const tableData = `OrderDate|Region|Rep|Item|Units|UnitCost|Total

@@ -8,12 +8,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/cainy-a/gord/app"
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/logging"
-	"github.com/cainy-a/gord/tview"
-	"github.com/cainy-a/gord/ui/shortcutdialog"
-	"github.com/cainy-a/gord/version"
+	"github.com/yellowsink/gord/app"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/logging"
+	"github.com/yellowsink/gord/tview"
+	"github.com/yellowsink/gord/ui/shortcutdialog"
+	"github.com/yellowsink/gord/version"
 )
 
 func main() {

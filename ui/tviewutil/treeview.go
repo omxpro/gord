@@ -1,8 +1,8 @@
 package tviewutil
 
 import (
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/tview"
 )
 
 func CreateFocusTextViewOnTypeInputHandler(app *tview.Application, component *tview.TextView) func(event *tcell.EventKey) *tcell.EventKey {

@@ -4,11 +4,11 @@ import (
 	"math/rand"
 	"sort"
 
-	"github.com/cainy-a/gord/tview"
 	"github.com/cainy-a/discordgo"
+	"github.com/yellowsink/gord/tview"
 
-	"github.com/cainy-a/gord/config"
-	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/config"
+	"github.com/yellowsink/gord/ui/tviewutil"
 )
 
 var (

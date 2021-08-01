@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 const form = `[green]package[white] main
 
 [green]import[white] (
-    [red]"github.com/cainy-a/gord/tview"[white]
+    [red]"github.com/yellowsink/gord/tview"[white]
 )
 
 [green]func[white] [yellow]main[white]() {

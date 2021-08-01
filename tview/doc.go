@@ -36,7 +36,7 @@ world!":
   package main
 
   import (
-  	"github.com/cainy-a/gord/tview"
+  	"github.com/yellowsink/gord/tview"
   )
 
   func main() {

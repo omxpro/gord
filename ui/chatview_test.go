@@ -5,9 +5,9 @@ import (
 
 	"github.com/cainy-a/discordgo"
 
-	"github.com/cainy-a/gord/config"
-	_ "github.com/cainy-a/gord/syntax"
-	"github.com/cainy-a/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/config"
+	_ "github.com/yellowsink/gord/syntax"
+	"github.com/yellowsink/gord/ui/tviewutil"
 )
 
 func TestParseBoldAndUnderline(t *testing.T) {

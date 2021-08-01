@@ -1,6 +1,6 @@
 package tviewutil
 
-import "github.com/cainy-a/gord/tview"
+import "github.com/yellowsink/gord/tview"
 
 func CreateCenteredComponent(component tview.Primitive, width int) tview.Primitive {
 	padding := tview.NewFlex().SetDirection(tview.FlexColumn)

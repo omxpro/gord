@@ -17,7 +17,7 @@ import (
 	"strconv"
 
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 // Slide is a function which returns the slide's main primitive and its title.

@@ -3,10 +3,10 @@ package shortcutdialog
 import (
 	"log"
 
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/tview"
-	"github.com/cainy-a/gord/ui/components"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/tview"
+	"github.com/yellowsink/gord/ui/components"
 )
 
 func ShowShortcutsDialog(app *tview.Application, onClose func()) {

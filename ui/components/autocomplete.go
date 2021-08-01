@@ -1,8 +1,8 @@
 package components
 
 import (
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/tview"
 )
 
 // AutocompleteView is a simple treeview meant for displaying autocomplete

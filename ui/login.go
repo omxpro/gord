@@ -6,12 +6,12 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/cainy-a/discordgo"
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/tview"
 
-	"github.com/cainy-a/gord/ui/tviewutil"
-	"github.com/cainy-a/gord/util/text"
+	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/yellowsink/gord/util/text"
 )
 
 const splashText = `

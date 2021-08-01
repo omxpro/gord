@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/cainy-a/gord/tview"
+	"github.com/yellowsink/gord/tview"
 )
 
 const pageCount = 5

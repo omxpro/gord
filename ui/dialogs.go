@@ -1,10 +1,10 @@
 package ui
 
 import (
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/tview"
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/tview"
 )
 
 // PrompSecretSingleLineInput shows a fullscreen input dialog that masks the

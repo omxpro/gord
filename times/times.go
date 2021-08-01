@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cainy-a/gord/config"
+	"github.com/yellowsink/gord/config"
 )
 
 // TimeToLocalString formats a time to a string depending on the users settings.

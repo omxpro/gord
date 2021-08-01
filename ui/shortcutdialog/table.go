@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cainy-a/gord/shortcuts"
-	"github.com/cainy-a/gord/tview"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/yellowsink/gord/shortcuts"
+	"github.com/yellowsink/gord/tview"
 )
 
 const (

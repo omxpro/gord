@@ -1,4 +1,4 @@
-module github.com/yellowsink/gord
+module github.com/gord-project/gord
 
 go 1.12
 

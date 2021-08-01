@@ -5,10 +5,10 @@ import (
 	"io"
 	"strings"
 
-	"github.com/yellowsink/gord/commands"
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/commands"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 const accountDocumentation = `[orange][::u]# account command[white]

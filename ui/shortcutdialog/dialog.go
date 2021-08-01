@@ -4,9 +4,9 @@ import (
 	"log"
 
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gord-project/gord/shortcuts"
+	"github.com/gord-project/gord/ui/components"
 	tview "github.com/gord-project/gview"
-	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/ui/components"
 )
 
 func ShowShortcutsDialog(app *tview.Application, onClose func()) {

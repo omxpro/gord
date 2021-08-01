@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/yellowsink/gord/config"
+	"github.com/gord-project/gord/config"
 )
 
 func init() {

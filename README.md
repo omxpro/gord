@@ -81,7 +81,7 @@ If you don't want to build the application yourself or use some kind of
 package management system, you can get the latest binaries for the three
 major systems in the release overview:
 
-https://github.com/yellowsink/gord/releases/latest
+https://github.com/gord-project/gord/releases/latest
 
 ### Building from source
 
@@ -95,7 +95,7 @@ https://git-scm.com/downloads.
 Open a command line and execute the following commands:
 
 ```shell
-git clone https://github.com/yellowsink/gord
+git clone https://github.com/gord-project/gord
 cd gord
 go build
 ```
@@ -127,7 +127,7 @@ If you are logging in with a bot token, you have to prepend `Bot` in front of
 the token. You also need to enable an intent if you want to view server users, but this is optional.
 ![](https://cdn.discordapp.com/attachments/690477562857521174/829450090829053972/unknown.png)
 
-If you need to find out how to retrieve your token, check [the gord wiki](https://github.com/yellowsink/gord/wiki/Retrieving-your-token).
+If you need to find out how to retrieve your token, check [the gord wiki](https://github.com/gord-project/gord/wiki/Retrieving-your-token).
 
 **Currently captcha-code login isn't supported. Thanks for your SHIT-API, Google**
 
@@ -151,7 +151,7 @@ changer via <kbd>Ctrl</kbd> + <kbd>K</kbd>.
 
 ## Extending Cordless via the scripting interface
 
-[Check the Gord wiki](https://github.com/yellowsink/gord/wiki/Extending-Gord-via-the-scripting-interface)
+[Check the Gord wiki](https://github.com/gord-project/gord/wiki/Extending-Gord-via-the-scripting-interface)
 
 ## Troubleshooting
 
@@ -159,14 +159,14 @@ If you happen to encounter a crash or a bug, please submit a bug report via
 the projects GitHub issue tracker. Bugs reported via Discord will probably
 be forgotten or overseen.
 
-For general problems faced by gord users, check out the [gord wiki](https://github.com/yellowsink/gord/wiki/Troubleshooting) at
+For general problems faced by gord users, check out the [gord wiki](https://github.com/gord-project/gord/wiki/Troubleshooting) at
 
 If you need help or have questions that you don't want to create an issue
 for, just join the Gord Discord server: https://discord.gg/e4HnvY28Wq
 
 # FAQ
 
-In order to find answers to common questions, check out the [FAQ](https://github.com/yellowsink/gord/wiki/FAQ)
+In order to find answers to common questions, check out the [FAQ](https://github.com/gord-project/gord/wiki/FAQ)
 
 ## This project isn't for you, if
 

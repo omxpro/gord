@@ -4,11 +4,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
 
-	"github.com/yellowsink/gord/config"
+	"github.com/gord-project/gord/config"
 )
 
 func TestGetUserColor(t *testing.T) {

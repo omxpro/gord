@@ -9,7 +9,7 @@ import (
 	tcell "github.com/gdamore/tcell/v2"
 	tview "github.com/gord-project/gview"
 
-	"github.com/yellowsink/gord/config"
+	"github.com/gord-project/gord/config"
 )
 
 func main() {

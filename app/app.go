@@ -9,12 +9,12 @@ import (
 	"github.com/cainy-a/discordgo"
 	tview "github.com/gord-project/gview"
 
-	"github.com/yellowsink/gord/commands/commandimpls"
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/readstate"
-	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/ui"
-	"github.com/yellowsink/gord/version"
+	"github.com/gord-project/gord/commands/commandimpls"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/readstate"
+	"github.com/gord-project/gord/shortcuts"
+	"github.com/gord-project/gord/ui"
+	"github.com/gord-project/gord/version"
 )
 
 // SetupApplicationWithAccount launches the whole application and might

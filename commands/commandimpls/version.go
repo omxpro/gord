@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/yellowsink/gord/version"
+	"github.com/gord-project/gord/version"
 )
 
 const versionDocumentation = `[::b]NAME

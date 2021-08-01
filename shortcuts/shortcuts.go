@@ -10,9 +10,9 @@ import (
 
 	tcell "github.com/gdamore/tcell/v2"
 
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui/tviewutil"
 	tview "github.com/gord-project/gview"
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui/tviewutil"
 )
 
 var (

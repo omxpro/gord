@@ -5,8 +5,8 @@ import (
 	"io"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/yellowsink/gord/discordutil"
-	"github.com/yellowsink/gord/ui"
+	"github.com/gord-project/gord/discordutil"
+	"github.com/gord-project/gord/ui"
 )
 
 const (

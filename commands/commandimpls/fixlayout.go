@@ -5,9 +5,9 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 var fixLayoutDocumentation = `[orange]# fixlayout[white]

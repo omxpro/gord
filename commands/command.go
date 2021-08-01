@@ -5,8 +5,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 // Command represents a command that is executable by the user.

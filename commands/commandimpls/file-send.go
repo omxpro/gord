@@ -13,11 +13,11 @@ import (
 
 	"github.com/cainy-a/discordgo"
 
-	"github.com/yellowsink/gord/commands"
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui"
-	"github.com/yellowsink/gord/ui/tviewutil"
-	"github.com/yellowsink/gord/util/files"
+	"github.com/gord-project/gord/commands"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui"
+	"github.com/gord-project/gord/ui/tviewutil"
+	"github.com/gord-project/gord/util/files"
 )
 
 const fileSendDocumentation = `[::b]NAME

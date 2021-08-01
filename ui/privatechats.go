@@ -6,14 +6,14 @@ import (
 
 	tcell "github.com/gdamore/tcell/v2"
 
-	"github.com/yellowsink/gord/discordutil"
-	"github.com/yellowsink/gord/readstate"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/discordutil"
+	"github.com/gord-project/gord/readstate"
+	"github.com/gord-project/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
 	tview "github.com/gord-project/gview"
 
-	"github.com/yellowsink/gord/config"
+	"github.com/gord-project/gord/config"
 )
 
 type privateChannelState int

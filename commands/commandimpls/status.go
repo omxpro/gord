@@ -11,8 +11,8 @@ import (
 	"github.com/Bios-Marcel/discordemojimap"
 	"github.com/cainy-a/discordgo"
 
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 const (

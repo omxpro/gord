@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gord-project/gord/shortcuts"
 	tview "github.com/gord-project/gview"
-	"github.com/yellowsink/gord/shortcuts"
 )
 
 const (

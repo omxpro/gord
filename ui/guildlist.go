@@ -4,11 +4,11 @@ import (
 	"fmt"
 
 	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/gord/readstate"
 	tview "github.com/gord-project/gview"
-	"github.com/yellowsink/gord/readstate"
 
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 // GuildList is the UI component to hold all user guilds and allow loading

@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gord-project/gord/commands"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/util/files"
 	"github.com/skratchdot/open-golang/open"
-	"github.com/yellowsink/gord/commands"
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/util/files"
 )
 
 var cacheCleanerLock = &sync.Mutex{}

@@ -7,10 +7,10 @@ import (
 	tcell "github.com/gdamore/tcell/v2"
 	tview "github.com/gord-project/gview"
 
-	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/femto"
-	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/ui/tviewutil"
+	"github.com/gord-project/gord/config"
+	"github.com/gord-project/gord/femto"
+	"github.com/gord-project/gord/shortcuts"
+	"github.com/gord-project/gord/ui/tviewutil"
 )
 
 // Editor is a simple component that wraps tview.TextView in order to give

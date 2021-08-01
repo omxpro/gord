@@ -42,7 +42,7 @@ var (
 	successiveCustomEmojiRegex = regexp.MustCompile("<a?:.+?:\\d+(><)a?:.+?:\\d+>")
 	customEmojiRegex           = regexp.MustCompile("(?sm)(.?)<(a?):(.+?):(\\d+)>(.?)")
 	codeBlockRegex             = regexp.MustCompile("(?sm)(^|.)?(\x60\x60\x60(.*?)?\n(.+?)\x60\x60\x60)($|.)")
-	colorRegex                 = regexp.MustCompile("\\[#.{6}\\]")
+	colorRegex                 = regexp.MustCompile("\\[#.{6}]")
 	channelMentionRegex        = regexp.MustCompile(`<#\d*>`)
 	urlRegex                   = regexp.MustCompile(`<?(https?://)(.+?)(/.+?)?($|\s|\||>)`)
 	spoilerRegex               = regexp.MustCompile(`(?s)\|\|(.+?)\|\|`)
@@ -214,7 +214,7 @@ func (chatView *ChatView) SetOnMessageAction(onMessageAction func(message *disco
 }
 
 func intToString(value int) string {
-	return strconv.FormatInt(int64(value), 10)
+	return strconv.Itoa(value)
 }
 
 func (chatView *ChatView) refreshSelectionAndScrollToSelection() {
@@ -338,7 +338,7 @@ func (chatView *ChatView) addMessageInternal(message *discordgo.Message) {
 	if chatFull {
 		chatView.Reprint()
 	} else {
-		fmt.Fprint(chatView.internalTextView, "\n[\""+intToString(len(chatView.data)-1)+"\"]"+formattedMessage)
+		_, _ = fmt.Fprint(chatView.internalTextView, "\n[\""+intToString(len(chatView.data)-1)+"\"]"+formattedMessage)
 	}
 }
 
@@ -351,10 +351,10 @@ func (chatView *ChatView) AddMessage(message *discordgo.Message) {
 	if len(chatView.data) > 0 {
 		previousMessageTime, _ := chatView.data[len(chatView.data)-1].Timestamp.Parse()
 		if !times.AreDatesTheSameDay(previousMessageTime.Local(), newMessageTimeLocal) {
-			fmt.Fprint(chatView.internalTextView, chatView.createDateDelimiter(newMessageTimeLocal.Format(chatView.format)))
+			_, _ = fmt.Fprint(chatView.internalTextView, chatView.createDateDelimiter(newMessageTimeLocal.Format(chatView.format)))
 		}
 	} else {
-		fmt.Fprint(chatView.internalTextView, chatView.createDateDelimiter(newMessageTimeLocal.Format(chatView.format)))
+		_, _ = fmt.Fprint(chatView.internalTextView, chatView.createDateDelimiter(newMessageTimeLocal.Format(chatView.format)))
 	}
 
 	chatView.addMessageInternal(message)
@@ -414,14 +414,14 @@ func (chatView *ChatView) createNewMessageDelimiterIfNecessary(messages []*disco
 func (chatView *ChatView) printDateDelimiterIfNecessary(messages []*discordgo.Message, index int) {
 	delimiter := chatView.createDateDelimiterIfNecessary(messages, index)
 	if delimiter != "" {
-		fmt.Fprint(chatView.internalTextView, delimiter)
+		_, _ = fmt.Fprint(chatView.internalTextView, delimiter)
 	}
 }
 
 func (chatView *ChatView) printNewMessageDelimterIfNecessary(messages []*discordgo.Message, index int) {
 	delimiter := chatView.createNewMessageDelimiterIfNecessary(messages, index)
 	if delimiter != "" {
-		fmt.Fprint(chatView.internalTextView, delimiter)
+		_, _ = fmt.Fprint(chatView.internalTextView, delimiter)
 	}
 }
 
@@ -765,7 +765,7 @@ func (chatView *ChatView) formatDefaultMessageText(message *discordgo.Message) s
 					reactionBuilder.WriteString("[::r]")
 				}
 				reactionBuilder.WriteRune('-')
-				reactionBuilder.WriteString(strconv.FormatInt(int64(reaction.Count), 10))
+				reactionBuilder.WriteString(strconv.Itoa(reaction.Count))
 				if reaction.Me {
 					reactionBuilder.WriteString("[::-]")
 				}

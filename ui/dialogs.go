@@ -3,8 +3,8 @@ package ui
 import (
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
+	tview "github.com/gord-project/gview"
 	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/tview"
 )
 
 // PrompSecretSingleLineInput shows a fullscreen input dialog that masks the

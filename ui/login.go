@@ -7,8 +7,8 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
+	tview "github.com/gord-project/gview"
 	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/tview"
 
 	"github.com/yellowsink/gord/ui/tviewutil"
 	"github.com/yellowsink/gord/util/text"

@@ -30,8 +30,7 @@ import (
 	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/gen2brain/beeep"
-
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 
 	"github.com/yellowsink/gord/commands"
 	"github.com/yellowsink/gord/config"

@@ -8,10 +8,10 @@ import (
 	"log"
 	"os"
 
+	tview "github.com/gord-project/gview"
 	"github.com/yellowsink/gord/app"
 	"github.com/yellowsink/gord/config"
 	"github.com/yellowsink/gord/logging"
-	"github.com/yellowsink/gord/tview"
 	"github.com/yellowsink/gord/ui/shortcutdialog"
 	"github.com/yellowsink/gord/version"
 )

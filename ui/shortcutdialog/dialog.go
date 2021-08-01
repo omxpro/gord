@@ -4,8 +4,8 @@ import (
 	"log"
 
 	tcell "github.com/gdamore/tcell/v2"
+	tview "github.com/gord-project/gview"
 	"github.com/yellowsink/gord/shortcuts"
-	"github.com/yellowsink/gord/tview"
 	"github.com/yellowsink/gord/ui/components"
 )
 

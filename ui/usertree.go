@@ -10,7 +10,7 @@ import (
 
 	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 )
 
 // UserTree represents the visual list of users in a guild.

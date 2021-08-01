@@ -5,7 +5,7 @@ import (
 
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 
 	"github.com/yellowsink/gord/config"
 	"github.com/yellowsink/gord/femto"

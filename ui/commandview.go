@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 )
 
 const noHistoryIndexSelected = -1

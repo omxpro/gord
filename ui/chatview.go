@@ -21,7 +21,7 @@ import (
 	"github.com/yellowsink/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 
 	// Blank import for initializing the tview formatter
 	_ "github.com/yellowsink/gord/syntax"

@@ -4,10 +4,10 @@ import (
 	"sync"
 
 	tcell "github.com/gdamore/tcell/v2"
+	tview "github.com/gord-project/gview"
 	"github.com/mattn/go-runewidth"
 	"github.com/rivo/uniseg"
 	"github.com/yellowsink/gord/config"
-	"github.com/yellowsink/gord/tview"
 )
 
 // BottomBar custom simple component to render static information at the bottom

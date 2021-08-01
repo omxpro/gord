@@ -11,7 +11,7 @@ import (
 	"github.com/yellowsink/gord/ui/tviewutil"
 
 	"github.com/cainy-a/discordgo"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 
 	"github.com/yellowsink/gord/config"
 )

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 )
 
 // Theme is a wrapper around the tview.Theme. This wrapper can be extended with

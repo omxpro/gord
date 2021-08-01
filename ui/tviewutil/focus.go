@@ -1,6 +1,6 @@
 package tviewutil
 
-import "github.com/yellowsink/gord/tview"
+import tview "github.com/gord-project/gview"
 
 func FocusNextIfPossible(direction tview.FocusDirection, app *tview.Application, focused tview.Primitive) {
 	if focused == nil {

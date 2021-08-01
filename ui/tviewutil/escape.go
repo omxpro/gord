@@ -3,7 +3,7 @@
 package tviewutil
 
 import (
-	"github.com/yellowsink/gord/tview"
+	tview "github.com/gord-project/gview"
 )
 
 // Escape delegates to tview escape, optionally doing additional escaping.

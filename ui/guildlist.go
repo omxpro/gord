@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/cainy-a/discordgo"
+	tview "github.com/gord-project/gview"
 	"github.com/yellowsink/gord/readstate"
-	"github.com/yellowsink/gord/tview"
 
 	"github.com/yellowsink/gord/config"
 	"github.com/yellowsink/gord/ui/tviewutil"

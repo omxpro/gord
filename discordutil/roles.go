@@ -3,7 +3,7 @@ package discordutil
 import (
 	"fmt"
 
-	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/discordgo"
 )
 
 // GetRoleColor returns the roles color in the format #RRGGBB

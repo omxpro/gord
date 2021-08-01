@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/atotto/clipboard"
-	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gord-project/discordgo"
 	"github.com/gord-project/gord/shortcuts"
 	tview "github.com/gord-project/gview"
 

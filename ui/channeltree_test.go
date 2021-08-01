@@ -3,8 +3,8 @@ package ui
 import (
 	"testing"
 
-	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gord-project/discordgo"
 )
 
 func TestChannelTree(t *testing.T) {

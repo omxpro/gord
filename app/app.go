@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/discordgo"
 	tview "github.com/gord-project/gview"
 
 	"github.com/gord-project/gord/commands/commandimpls"

@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/cainy-a/discordgo"
+import "github.com/gord-project/discordgo"
 
 type ClientState interface {
 	GetSelectedGuild() *discordgo.Guild

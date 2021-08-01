@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/discordgo"
 
 	"github.com/gord-project/gord/commands"
 	"github.com/gord-project/gord/config"

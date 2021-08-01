@@ -20,7 +20,7 @@ import (
 	"github.com/gord-project/gord/times"
 	"github.com/gord-project/gord/ui/tviewutil"
 
-	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/discordgo"
 	tview "github.com/gord-project/gview"
 
 	// Blank import for initializing the tview formatter

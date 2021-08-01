@@ -8,8 +8,8 @@ import (
 	"github.com/gord-project/gord/discordutil"
 	"github.com/gord-project/gord/ui/tviewutil"
 
-	"github.com/cainy-a/discordgo"
 	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gord-project/discordgo"
 	tview "github.com/gord-project/gview"
 )
 

@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/cainy-a/discordgo"
+	"github.com/gord-project/discordgo"
 )
 
 // GuildLoader reflects an instance that allows loading guilds from a discord backend.
@@ -65,7 +65,6 @@ func FindEmojiInGuild(session *discordgo.Session, guild *discordgo.Guild, omitGW
 		if emoji.Animated {
 			continue
 		}
-
 
 		if strings.EqualFold(emoji.Name, emojiSequence) && (omitGWCheck || strings.HasPrefix(emoji.Name, "GW")) {
 			if len(emoji.Roles) != 0 {

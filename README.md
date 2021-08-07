@@ -1,3 +1,19 @@
+# IMPORTANT NOTICE 7th AUGUST 2021 (pasted from Discord)
+
+@everyone sorry for ping but important
+
+**The short version**: gord is kil sry 
+
+**The long version**: Its been a super fun 4 months and i wanna say thanks to everyone here for the support, but unfortunately I am not sure I want to continue with development as I don't feel very motivated to work on it anymore. The code quality is just plain shit, I have bugs coming out of my ears, and tbh I have more pressing things to focus on - I have GCSE exams next year which is kinda important. I code for fun or making little tools for myself mostly, so this isn't productive for me right now, and I am officially discontinuing Gord.
+
+I'd like to clarify that I DO NOT think that anyone is a problem - you're all great people as far as I've seen, but I have ended up feeling as if I owe something and it's stress I don't need. I talked over this a bit with the original dev of Cordless, and they brought up some good points too.
+
+If anyone is interested in taking over the project, DM me I guess, else I'll just leave the project for a while then archive it. This server will remain as is, except #suggestions and #broken-shit which will be archived.
+
+Again, thank you everyone for the past 4 months, and I hope none of you are annoyed at me for this and we can still be friends.
+
+![:IsaWave:](https://cdn.discordapp.com/emojis/694746617420709950.gif?v=1&size=64&width=16)
+
 <h1 align="center">Gord</h1>
 
 A maintained fork of [Cordless](https://github.com/Bios-Marcel/cordless) with extra features.

@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	tcell "github.com/gdamore/tcell/v2"
+	"github.com/gdamore/tcell/v2"
 
 	"github.com/gord-project/gord/config"
 	"github.com/gord-project/gord/ui/tviewutil"
@@ -148,13 +148,13 @@ var (
 		globalScope, tcell.NewEventKey(tcell.KeyCtrlB, rune(tcell.KeyCtrlB), tcell.ModCtrl))
 
 	GroupChannelMarkMuted = addShortcut("group_channel_mark_muted", "Mark group channel as muted",
-		globalScope, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
+		globalScope, tcell.NewEventKey(tcell.KeyCtrlU, rune(tcell.KeyCtrlU), tcell.ModCtrl))
 	GuildListMarkMuted = addShortcut("guild_mark_muted", "Mark server as muted",
-		guildlist, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
+		guildlist, tcell.NewEventKey(tcell.KeyCtrlU, rune(tcell.KeyCtrlU), tcell.ModCtrl))
 	GuildListMarkRead = addShortcut("guild_mark_read", "Mark server as read",
 		guildlist, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
 	ChannelTreeMarkMuted = addShortcut("channel_mark_muted", "Mark channel as muted",
-		channeltree, tcell.NewEventKey(tcell.KeyRune, 'm', tcell.ModNone))
+		channeltree, tcell.NewEventKey(tcell.KeyCtrlU, rune(tcell.KeyCtrlU), tcell.ModCtrl))
 	ChannelTreeMarkRead = addShortcut("channel_mark_read", "Mark channel as read",
 		channeltree, tcell.NewEventKey(tcell.KeyCtrlR, rune(tcell.KeyCtrlR), tcell.ModCtrl))
 

@@ -41,8 +41,10 @@ github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c h1:16eHWuMGvCjSf
 github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
 github.com/gopherjs/gopherwasm v1.1.0 h1:fA2uLoctU5+T3OhOn2vYP0DVT6pxc7xhTlBB1paATqQ=
 github.com/gopherjs/gopherwasm v1.1.0/go.mod h1:SkZ8z7CWBz5VXbhJel8TxCmAcsQqzgWGR/8nMhyhZSI=
-github.com/gord-project/discordgo v0.1.0 h1:2s4tPmXM77Zv3D2goLt/68iGD2lYY4HZfqmnyS9P6Eo=
-github.com/gord-project/discordgo v0.1.0/go.mod h1:dtdrqBihfU3jNjzQzg8Ce3X4Mlr23LgTYawQ3hIF8AU=
+github.com/omxpro/discordgo
+ v0.1.0 h1:2s4tPmXM77Zv3D2goLt/68iGD2lYY4HZfqmnyS9P6Eo=
+github.com/omxpro/discordgo
+ v0.1.0/go.mod h1:dtdrqBihfU3jNjzQzg8Ce3X4Mlr23LgTYawQ3hIF8AU=
 github.com/gord-project/gview v0.0.0-20210801162502-2f2f57835ab3 h1:tv/McCOLkV/pKsD0ADX9Sz4Na1LSmMgzaatLuOEiBS0=
 github.com/gord-project/gview v0.0.0-20210801162502-2f2f57835ab3/go.mod h1:OwZy8CWZ5Tykq3oUhR9yxtVUPFyWck7/IepIC9cJQ4E=
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=

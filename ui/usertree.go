@@ -9,7 +9,8 @@ import (
 	"github.com/gord-project/gord/ui/tviewutil"
 
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	tview "github.com/gord-project/gview"
 )
 

@@ -15,7 +15,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 
 	"github.com/pkg/errors"
 	"github.com/robertkrimen/otto"

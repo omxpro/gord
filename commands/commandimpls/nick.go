@@ -6,7 +6,8 @@ import (
 	"strings"
 
 	"github.com/Bios-Marcel/discordemojimap"
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 
 	"github.com/gord-project/gord/commands"
 )

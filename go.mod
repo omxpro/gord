@@ -11,7 +11,8 @@ require (
 	github.com/gdamore/tcell/v2 v2.0.0
 	github.com/gen2brain/beeep v0.0.0-20200526185328-e9c15c258e28
 	github.com/google/go-github/v29 v29.0.3
-	github.com/gord-project/discordgo v0.1.0
+	github.com/omxpro/discordgo
+ v0.1.0
 	github.com/gord-project/gview v0.0.0-20210801162502-2f2f57835ab3
 	github.com/mattn/go-runewidth v0.0.9
 	github.com/mdp/qrterminal/v3 v3.0.0

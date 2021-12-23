@@ -29,7 +29,8 @@ import (
 
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/gen2brain/beeep"
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	tview "github.com/gord-project/gview"
 
 	"github.com/gord-project/gord/commands"

@@ -3,7 +3,8 @@ package scripting
 import (
 	"io"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 )
 
 // Engine describes a type that is capable of handling events from the main

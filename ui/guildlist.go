@@ -3,7 +3,8 @@ package ui
 import (
 	"fmt"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	"github.com/gord-project/gord/readstate"
 	tview "github.com/gord-project/gview"
 

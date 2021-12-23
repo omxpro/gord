@@ -6,7 +6,8 @@ import (
 
 	"github.com/gord-project/gord/ui/tviewutil"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 
 	"github.com/gord-project/gord/config"
 )

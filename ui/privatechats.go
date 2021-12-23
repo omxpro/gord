@@ -10,7 +10,8 @@ import (
 	"github.com/gord-project/gord/readstate"
 	"github.com/gord-project/gord/ui/tviewutil"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	tview "github.com/gord-project/gview"
 
 	"github.com/gord-project/gord/config"

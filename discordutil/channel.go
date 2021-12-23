@@ -5,7 +5,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 
 	"github.com/gord-project/gord/readstate"
 	"github.com/gord-project/gord/ui/tviewutil"

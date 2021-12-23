@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	"github.com/gord-project/gord/discordutil"
 	"github.com/gord-project/gord/ui"
 )

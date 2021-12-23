@@ -6,7 +6,8 @@ import (
 
 	"github.com/atotto/clipboard"
 	tcell "github.com/gdamore/tcell/v2"
-	"github.com/gord-project/discordgo"
+	"github.com/omxpro/discordgo
+"
 	"github.com/gord-project/gord/shortcuts"
 	tview "github.com/gord-project/gview"
 
